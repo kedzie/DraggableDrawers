@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_collapse"
+        android:showAsAction="ifRoom"
+        android:title="Collapse"
+        android:icon="@drawable/action_collapse"/>
+    
+     <item
+        android:id="@+id/action_expand"
+        android:showAsAction="ifRoom"
+        android:title="Expand"
+        android:icon="@drawable/action_expand"/>
+
+</menu>
