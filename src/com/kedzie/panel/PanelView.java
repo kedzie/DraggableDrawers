@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.kedzie.panel.util.Utils;
 import com.kedzie.panelview.R;
 
 public class PanelView extends FrameLayout {
@@ -337,9 +338,9 @@ public class PanelView extends FrameLayout {
                 public boolean onTouch(View v, MotionEvent event) {
                     final float y = event.getY();
                     final float rawY = event.getRawY();
-//                    if (DEBUG) LOG("handle.onTouch: a=%s y=%.1f rawY=%.1f off=%.1f",
-//                            MotionEvent.actionToString(event.getAction()),
-//                            y, rawY, mTouchOffset);
+                    if (DEBUG) LOG("handle.onTouch: a=%s y=%.1f rawY=%.1f off=%.1f",
+                            Utils.motionActionToString(event.getAction()),
+                            y, rawY, mTouchOffset);
                     PanelView.this.getLocationOnScreen(mAbsPos);
 
                     switch (event.getAction()) {

@@ -195,10 +195,6 @@ public class PanelBar extends FrameLayout {
 
     public void onTrackingStarted(PanelView panel) {
         mTracking = true;
-        if (DEBUG && panel != mTouchingPanel) {
-            LOG("shouldn't happen: onTrackingStarted(%s) != mTouchingPanel(%s)",
-                    panel, mTouchingPanel);
-        }
     }
 
     public void onTrackingStopped(PanelView panel) {

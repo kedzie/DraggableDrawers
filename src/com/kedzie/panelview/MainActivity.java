@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
     	switch(item.getItemId()) {
     		case R.id.action_expand:
     			Log.d(TAG, "Expanding");
+    			mTopPanel.expand();
     			return true;
     		case R.id.action_collapse:
     			Log.d(TAG, "Collapsing");
