@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Individual drawer attributes -->
+    <declare-styleable name="Drawer">
+        <!-- Orientation of drawer -->
+        <attr name="type">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+        <attr name="handle_size" format="dimension"/>
+        <!--Drawer shadow drawable -->
+        <attr name="shadow" format="reference"/>
+        <!-- handle view id -->
+        <attr name="handle" format="reference"/>
+        <!-- Content view id -->
+        <attr name="content" format="reference"/>
+    </declare-styleable>
+
+    <!-- Drawer layout attributes -->
+    <declare-styleable name="DrawerLayout">
+        <!--Color to shade the background when drawers are open -->
+        <attr name="scrim_color" format="color"/>
+    </declare-styleable>
+
+</resources>

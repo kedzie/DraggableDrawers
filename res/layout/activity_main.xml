@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.kedzie.drawer.drag.DraggedView
+        android:id="@+id/drag1"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
         android:layout_centerInParent="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Activity Content" />
+        android:background="@android:color/holo_blue_light">
+
+
+        </com.kedzie.drawer.drag.DraggedView>
 
 </RelativeLayout>

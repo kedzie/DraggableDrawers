@@ -8,6 +8,7 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/com/google/android/android/4.2.2/android-4.2.2-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../android-sdk/sources/android-17" />
     </SOURCES>
   </library>
 </component>

@@ -1,0 +1,41 @@
+
+
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<com.kedzie.drawer.drag.DragLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:kedzie="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <com.kedzie.drawer.drag.DraggedView
+        android:id="@+id/left"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        kedzie:handle_size="20dp"
+        kedzie:type="left"
+        android:background="@android:color/holo_red_light"/>
+
+    <com.kedzie.drawer.drag.DraggedView
+            android:id="@+id/dragged"
+            android:layout_width="100dp"
+            android:layout_height="250dp"
+            kedzie:handle_size="20dp"
+            kedzie:type="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/holo_blue_light"/>
+
+    <com.kedzie.drawer.drag.DraggedView
+            android:id="@+id/top"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            kedzie:handle_size="20dp"
+            kedzie:type="top"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/darker_gray"/>
+
+</com.kedzie.drawer.drag.DragLayout>

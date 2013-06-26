@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kedzie.panelview"
+    package="com.kedzie.drawer"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="17"
         android:targetSdkVersion="17" />
 
     <application
@@ -14,8 +14,18 @@
         android:label="PanelView"
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
-            android:name="com.kedzie.panelview.MainActivity"
+            android:name=".scale.MainActivity"
             android:label="PanelView" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name=".drag.DraggerActivity"
+                android:label="Drawers" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
