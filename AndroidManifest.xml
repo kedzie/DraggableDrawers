@@ -13,15 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="PanelView"
         android:theme="@android:style/Theme.Holo.Light" >
-        <activity
-            android:name=".scale.MainActivity"
-            android:label="PanelView" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity
                 android:name=".drag.DraggerActivity"
