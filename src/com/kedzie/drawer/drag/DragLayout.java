@@ -59,18 +59,10 @@ public class DragLayout extends RelativeLayout {
         public void onDrawerStateChanged(int newState);
     }
 
-        /** Minimum velocity that will be detected as a fling */
-    private static final int MIN_FLING_VELOCITY = 400; // dips per second
-
-    /** Length of time to delay before peeking the drawer. */
-    private static final int PEEK_DELAY = 160; // ms
-
     /** Indicates that any drawers are in an idle, settled state. No animation is in progress. */
     public static final int STATE_IDLE = ViewDragHelper.STATE_IDLE;
-
     /** Indicates that a drawer is currently being dragged by the user. */
     public static final int STATE_DRAGGING = ViewDragHelper.STATE_DRAGGING;
-
     /** Indicates that a drawer is in the process of settling to a final position. */
     public static final int STATE_SETTLING = ViewDragHelper.STATE_SETTLING;
 
@@ -104,7 +96,7 @@ public class DragLayout extends RelativeLayout {
         }
 
         final float density = getResources().getDisplayMetrics().density;
-        final float minVel = MIN_FLING_VELOCITY * density;
+        final float minVel = getResources().getInteger(R.integer.min_fling_velocity) * density;
 
         mDragHelper = ViewDragHelper.create(this, 0.5f, mCallback);
         mDragHelper.setMinVelocity(minVel);
