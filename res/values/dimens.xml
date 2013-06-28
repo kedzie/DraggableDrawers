@@ -3,7 +3,7 @@
 <resources>
 
     <!-- Minimum fling velocity for drawers (dp/second)-->
-    <integer name="min_fling_velocity">400</integer>
+    <integer name="min_fling_velocity">200</integer>
 
     <!-- How long to wait before peeking a drawer (ms) -->
     <integer name="peek_delay">160</integer>

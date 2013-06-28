@@ -11,6 +11,7 @@
       <directory url="file://$PROJECT_DIR$/../support_v4_nineoldandroids/v4/bin/generated-sources/r" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/../support_v4_nineoldandroids/v4/bin/generated-sources/aidl" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/../support_v4_nineoldandroids/gen" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/gen-external-apklibs/com.actionbarsherlock_actionbarsherlock_4.3.1/gen" includeSubdirectories="true" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

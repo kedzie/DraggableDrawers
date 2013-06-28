@@ -2,57 +2,99 @@
 
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <com.kedzie.drawer.drag.DragLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:kedzie="http://schemas.android.com/apk/res/com.kedzie.drawer"
-    android:id="@+id/drawer_layout"
-    kedzie:scrim_color="@color/scrim"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:kedzie="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        kedzie:scrim_color="@color/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <com.kedzie.drawer.drag.DraggedView
-        android:id="@+id/left"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        kedzie:handle_size="20dp"
-        kedzie:type="left"
-        kedzie:shadow="@drawable/drawer_shadow"
-        android:layout_marginTop="24dp"
-        android:background="@android:color/holo_red_light"/>
-
-    <com.kedzie.drawer.drag.DraggedView
-            android:id="@+id/bottom_right"
-            android:layout_width="100dp"
-            android:layout_height="250dp"
-            kedzie:handle_size="20dp"
-            kedzie:type="bottom"
+    <com.kedzie.drawer.drag.DraggedLinearLayout
+            android:id="@+id/left"
+            android:layout_width="220dp"
+            android:layout_height="100dp"
+            kedzie:handle="@+id/left_handle"
+            kedzie:content="@+id/left_content"
+            kedzie:type="left"
             kedzie:shadow="@drawable/drawer_shadow"
+            android:layout_marginTop="24dp">
+
+        <RelativeLayout
+                android:id="@id/left_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF0000FF">
+            <TextView android:text="LEFT"
+                      android:layout_centerInParent="true"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <ImageView android:id="@id/left_handle"
+                   android:gravity="center"
+                   android:layout_width="20dp"
+                   android:layout_height="48dp"/>
+
+    </com.kedzie.drawer.drag.DraggedLinearLayout>
+
+    <com.kedzie.drawer.drag.DraggedLinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            kedzie:handle="@+id/bottom_handle"
+            kedzie:content="@+id/bottom_content"
+            kedzie:type="bottom"
+            kedzie:shadow="@drawable/shadow_bottom"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="18dp"
-            android:background="@android:color/holo_blue_light"/>
+            android:layout_marginRight="18dp">
 
-    <com.kedzie.drawer.drag.DraggedView
-            android:id="@+id/bottom_left"
-            android:layout_width="100dp"
-            android:layout_height="250dp"
-            kedzie:handle_size="20dp"
-            kedzie:type="bottom"
-            kedzie:shadow="@drawable/drawer_shadow"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="18dp"
-            android:background="@android:color/holo_blue_light"/>
+        <RelativeLayout
+                android:id="@id/bottom_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffa627">
+            <TextView android:text="BOTTOM"
+                      android:layout_centerInParent="true"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
-    <com.kedzie.drawer.drag.DraggedView
+        <ImageView android:id="@id/bottom_handle"
+                   android:layout_width="48dp"
+                   android:layout_height="20dp"
+                   android:gravity="center"/>
+
+    </com.kedzie.drawer.drag.DraggedLinearLayout>
+
+    <com.kedzie.drawer.drag.DraggedLinearLayout
             android:id="@+id/top"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            kedzie:handle_size="20dp"
+            kedzie:handle="@+id/top_handle"
+            kedzie:content="@+id/top_content"
             kedzie:type="top"
-            kedzie:shadow="@drawable/drawer_shadow"
+            kedzie:shadow="@drawable/shadow_top"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/darker_gray"/>
+            android:layout_alignParentRight="true">
+
+        <RelativeLayout
+                android:id="@id/top_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF00FFFF">
+            <TextView android:text="TOP"
+                      android:layout_centerInParent="true"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+        <ImageView android:id="@id/top_handle"
+                   android:gravity="center"
+                   android:layout_width="48dp"
+                   android:layout_height="24dp"/>
+
+    </com.kedzie.drawer.drag.DraggedLinearLayout>
 
 </com.kedzie.drawer.drag.DragLayout>

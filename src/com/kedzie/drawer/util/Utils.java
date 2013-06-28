@@ -1,5 +1,7 @@
 package com.kedzie.drawer.util;
 
+import android.widget.Toast;
+
 import static android.view.MotionEvent.*;
 
 public class Utils {
@@ -44,5 +46,5 @@ public class Utils {
                 return Integer.toString(action);
         }
     }
-    
+
 }
