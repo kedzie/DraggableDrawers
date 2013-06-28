@@ -12,8 +12,8 @@
 
     <com.kedzie.drawer.drag.DraggedLinearLayout
             android:id="@+id/left"
-            android:layout_width="220dp"
-            android:layout_height="100dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             kedzie:handle="@+id/left_handle"
             kedzie:content="@+id/left_content"
             kedzie:type="left"
@@ -32,15 +32,16 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/left_handle"
+                   android:src="@drawable/handle"
                    android:gravity="center"
-                   android:layout_width="20dp"
-                   android:layout_height="48dp"/>
+                   android:layout_width="70dp"
+                   android:layout_height="400dp"/>
 
     </com.kedzie.drawer.drag.DraggedLinearLayout>
 
     <com.kedzie.drawer.drag.DraggedLinearLayout
             android:id="@+id/bottom"
-            android:layout_width="200dp"
+            android:layout_width="400dp"
             android:layout_height="250dp"
             kedzie:handle="@+id/bottom_handle"
             kedzie:content="@+id/bottom_content"
@@ -62,16 +63,17 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/bottom_handle"
-                   android:layout_width="48dp"
-                   android:layout_height="20dp"
+                   android:src="@drawable/handle"
+                   android:layout_width="100dp"
+                   android:layout_height="70dp"
                    android:gravity="center"/>
 
     </com.kedzie.drawer.drag.DraggedLinearLayout>
 
     <com.kedzie.drawer.drag.DraggedLinearLayout
             android:id="@+id/top"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             kedzie:handle="@+id/top_handle"
             kedzie:content="@+id/top_content"
             kedzie:type="top"
@@ -91,9 +93,10 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/top_handle"
+                   android:src="@drawable/handle"
                    android:gravity="center"
-                   android:layout_width="48dp"
-                   android:layout_height="24dp"/>
+                   android:layout_width="200dp"
+                   android:layout_height="70dp"/>
 
     </com.kedzie.drawer.drag.DraggedLinearLayout>
 

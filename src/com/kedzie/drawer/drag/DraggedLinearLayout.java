@@ -66,8 +66,7 @@ public class DraggedLinearLayout extends LinearLayout {
         mContent = findViewById(mContentId);
         //get the gravity from layout params
         LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
-        removeView(mHandle);
-        removeView(mContent);
+        removeAllViews();
 
         switch(mDrawerType) {
             case DRAWER_LEFT:
@@ -75,21 +74,25 @@ public class DraggedLinearLayout extends LinearLayout {
                 addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
                 if(mHandle!=null)
                     addView(mHandle, handleParams);
+                break;
             case DRAWER_RIGHT:
                 setOrientation(HORIZONTAL);
                 if(mHandle!=null)
                     addView(mHandle, handleParams);
                 addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                break;
             case DRAWER_TOP:
                 setOrientation(VERTICAL);
                 addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
                 if(mHandle!=null)
                     addView(mHandle, handleParams);
+                break;
             case DRAWER_BOTTOM:
                 setOrientation(VERTICAL);
                 if(mHandle!=null)
                     addView(mHandle, handleParams);
                 addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+                break;
         }
     }
 
