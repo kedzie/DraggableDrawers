@@ -52,18 +52,6 @@ public class DraggerActivity extends Activity {
     }
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-//        mLayout.closeAllDrawers();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mLayout.closeAllDrawers();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

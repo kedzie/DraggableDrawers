@@ -187,9 +187,8 @@ public class DragLayout extends RelativeLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        for(DrawerHolder holder : mDrawers.values()) {
+        for(DrawerHolder holder : mDrawers.values())
             holder.helper.processTouchEvent(event);
-        }
 
         final int action = event.getAction();
 
@@ -203,6 +202,10 @@ public class DragLayout extends RelativeLayout {
             }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
+                float dx = event.getX()-mInitialMotionX;
+                float dy = event.getY()-mInitialMotionY;
+                int slop = mDragger.getTouchSlop();
+                if(dx*dx+dy*dy < slop*slop)
                 closeAllDrawers();
                 break;
             }
@@ -249,6 +252,8 @@ public class DragLayout extends RelativeLayout {
         if (slideOffset == lp.onScreen)
             return;
         lp.onScreen = slideOffset;
+        lp.knownOpen = slideOffset==1f;
+        dispatchOnDrawerSlide(drawerView, slideOffset);
     }
 
     float getDrawerViewOffset(View drawerView) {
@@ -271,15 +276,18 @@ public class DragLayout extends RelativeLayout {
                     drawerView.offsetLeftAndRight(drawerView.getHandleSize() - drawerView.getWidth());
                     break;
                 case DraggedLinearLayout.DRAWER_RIGHT:
-                    drawerView.offsetLeftAndRight(getWidth()-drawerView.getHandleSize());
+                    drawerView.offsetLeftAndRight(drawerView.getWidth()-drawerView.getHandleSize());
                     break;
                 case DraggedLinearLayout.DRAWER_TOP:
                     drawerView.offsetTopAndBottom(drawerView.getHandleSize()-drawerView.getHeight());
                     break;
                 case DraggedLinearLayout.DRAWER_BOTTOM:
-                    drawerView.offsetTopAndBottom(getHeight() - drawerView.getHandleSize());
+                    drawerView.offsetTopAndBottom(drawerView.getHeight() - drawerView.getHandleSize());
                     break;
             }
+            LayoutParams lp = (LayoutParams)drawerView.getLayoutParams();
+            if(lp.onScreen==0f)
+                drawerView.setContentVisibility(INVISIBLE);
         }
         mInLayout=false;
         mFirstLayout=false;
@@ -325,7 +333,7 @@ public class DragLayout extends RelativeLayout {
                         drawerView.getTop());
                 break;
             case DraggedLinearLayout.DRAWER_TOP:
-                mDragHelper.smoothSlideViewTo(drawerView, drawerView.getLeft(), getHeight() - drawerView.getHeight());
+                mDragHelper.smoothSlideViewTo(drawerView, drawerView.getLeft(), 0);
                 break;
             case DraggedLinearLayout.DRAWER_BOTTOM:
                 mDragHelper.smoothSlideViewTo(drawerView, drawerView.getLeft(), getHeight() - drawerView.getHeight());
@@ -581,7 +589,7 @@ public class DragLayout extends RelativeLayout {
             }
             offset = Math.min(offset, 1f);
             setDrawerViewOffset(dragView, offset);
-            dragView.setContentVisibility(offset > 0f ? VISIBLE : GONE);
+            dragView.setContentVisibility(offset > 0f ? VISIBLE : INVISIBLE);
             invalidate();
         }
 
