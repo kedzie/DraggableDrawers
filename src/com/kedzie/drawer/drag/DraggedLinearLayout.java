@@ -128,4 +128,12 @@ public class DraggedLinearLayout extends LinearLayout {
     public Drawable getShadowDrawable() {
         return mShadowDrawable;
     }
+
+    public void setContentVisibility(int visibility) {
+        mContent.setVisibility(visibility);
+    }
+
+    public View getHandle() {
+        return mHandle;
+    }
 }

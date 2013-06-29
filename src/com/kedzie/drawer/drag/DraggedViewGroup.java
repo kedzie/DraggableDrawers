@@ -34,7 +34,6 @@ public class DraggedViewGroup extends ViewGroup {
 
     private int mHandleId;
     private int mContentId;
-    private int mShadowId;
 
     private View mHandle;
     private View mContent;
@@ -196,6 +195,14 @@ public class DraggedViewGroup extends ViewGroup {
      */
     public Drawable getShadowDrawable() {
         return mShadowDrawable;
+    }
+
+    public void setContentVisibility(int visibility) {
+        mContent.setVisibility(visibility);
+    }
+
+    public View getHandle() {
+        return mHandle;
     }
 
     @Override
