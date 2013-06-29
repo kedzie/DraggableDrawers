@@ -11,4 +11,7 @@
     <!-- How far to slide the panel out when you touch it -->
     <dimen name="peek_height">84dp</dimen>
 
+    <!-- Drawer shadow length -->
+    <dimen name="drawer_shadow_length">15dp</dimen>
+
 </resources>

@@ -26,6 +26,9 @@ public class DraggedViewGroup extends ViewGroup {
 
     /** Handle size */
     private int mHandleSize;
+    private int mHandleWidth;
+    private int mHandleHeight;
+
     /** Drawer orientation */
     private int mDrawerType;
 
@@ -76,8 +79,10 @@ public class DraggedViewGroup extends ViewGroup {
 
         measureChild(mHandle, widthMeasureSpec, heightMeasureSpec);
         if(mHandle!=null) {
+            mHandleWidth = mHandle.getMeasuredWidth();
+            mHandleHeight = mHandle.getMeasuredHeight();
             mHandleSize = (mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) ?
-                    mHandle.getMeasuredWidth() : mHandle.getMeasuredHeight();
+                    mHandleWidth : mHandleHeight;
         }
 
         int dw = getPaddingLeft() + getPaddingRight();
@@ -87,16 +92,16 @@ public class DraggedViewGroup extends ViewGroup {
             case DRAWER_BOTTOM:
             case DRAWER_TOP:
                 measureChild(mContent, widthMeasureSpec,
-                        MeasureSpec.makeMeasureSpec(heightSpecSize-mHandle.getMeasuredHeight(), heightSpecMode));
-                dw += Math.max(mHandle.getMeasuredWidth(), mContent.getMeasuredWidth());
-                dh += mHandle.getMeasuredHeight()+mContent.getMeasuredHeight();
+                        MeasureSpec.makeMeasureSpec(heightSpecSize-mHandleHeight, heightSpecMode));
+                dw += Math.max(mHandleWidth, mContent.getMeasuredWidth());
+                dh += mHandleHeight+mContent.getMeasuredHeight();
                 break;
             case DRAWER_LEFT:
             case DRAWER_RIGHT:
-                measureChild(mContent, MeasureSpec.makeMeasureSpec(widthSpecSize-mHandle.getMeasuredWidth(), widthSpecMode),
+                measureChild(mContent, MeasureSpec.makeMeasureSpec(widthSpecSize-mHandleWidth, widthSpecMode),
                         heightMeasureSpec);
-                dw += mHandle.getMeasuredWidth()+mContent.getMeasuredWidth();
-                dh += Math.max(mHandle.getMeasuredHeight(), mContent.getMeasuredHeight());
+                dw += mHandleWidth+mContent.getMeasuredWidth();
+                dh += Math.max(mHandleHeight, mContent.getMeasuredHeight());
                 break;
         }
 
@@ -116,33 +121,30 @@ public class DraggedViewGroup extends ViewGroup {
         int handleTop=0, handleLeft=0;
         if(mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) { //horizontal drawers
             switch(lp.gravity) {
-                case Gravity.START:
                 case Gravity.TOP:
-                    handleTop = 0;
+                    handleTop = lp.topMargin;
                     break;
-                case Gravity.END:
                 case Gravity.BOTTOM:
-                    handleTop = mContent.getMeasuredHeight()-mHandle.getMeasuredHeight();
+                    handleTop = mContent.getMeasuredHeight()-mHandleHeight-lp.bottomMargin;
                     break;
                 case Gravity.CENTER_HORIZONTAL:
                 case Gravity.CENTER:
                 default:
-                    handleTop = (mContent.getMeasuredHeight()-mHandle.getMeasuredHeight())/2;
+                    handleTop = (mContent.getMeasuredHeight()-mHandleHeight)/2;
                     break;
             }
         } else {    //vertical drawers
             switch(lp.gravity) {
-                case Gravity.START:
                 case Gravity.LEFT:
-                    handleLeft = 0;
+                    handleLeft = lp.leftMargin;
                     break;
-                case Gravity.END:
                 case Gravity.RIGHT:
-                    handleLeft = mContent.getMeasuredWidth()-mHandle.getMeasuredWidth();
+                    handleLeft = mContent.getMeasuredWidth()-mHandleWidth-lp.rightMargin;
                     break;
                 case Gravity.CENTER_VERTICAL:
                 case Gravity.CENTER:
-                    handleLeft = (mContent.getMeasuredWidth()-mHandle.getMeasuredWidth())/2;
+                default:
+                    handleLeft = (mContent.getMeasuredWidth()-mHandleWidth)/2;
                     break;
             }
         }
@@ -150,19 +152,23 @@ public class DraggedViewGroup extends ViewGroup {
         switch(mDrawerType) {
             case DRAWER_LEFT:
                 mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
-                mHandle.layout(mContent.getMeasuredWidth(), handleTop, mContent.getMeasuredWidth()+mHandle.getMeasuredWidth(), handleTop+mHandle.getMeasuredHeight());
+                if(mHandle!=null)
+                    mHandle.layout(mContent.getMeasuredWidth(), handleTop, mContent.getMeasuredWidth()+mHandleWidth, handleTop+mHandleHeight);
                 break;
             case DRAWER_RIGHT:
-                mHandle.layout(0, handleTop, mHandle.getMeasuredWidth(), handleTop+mHandle.getMeasuredHeight());
-                mContent.layout(mHandle.getMeasuredWidth(), 0, mHandle.getMeasuredWidth()+mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
+                if(mHandle!=null)
+                    mHandle.layout(0, handleTop, mHandleWidth, handleTop+mHandleHeight);
+                mContent.layout(mHandleWidth, 0, mHandleWidth+mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
                 break;
             case DRAWER_TOP:
                 mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
-                mHandle.layout(handleLeft, mContent.getMeasuredHeight(), handleLeft+mHandle.getMeasuredWidth(),mContent.getMeasuredHeight()+mHandle.getMeasuredHeight());
+                if(mHandle!=null)
+                    mHandle.layout(handleLeft, mContent.getMeasuredHeight(), handleLeft+mHandleWidth,mContent.getMeasuredHeight()+mHandleHeight);
                 break;
             case DRAWER_BOTTOM:
-                mHandle.layout(handleLeft, 0, handleLeft+mHandle.getMeasuredWidth(), mHandle.getMeasuredHeight());
-                mContent.layout(0, mHandle.getMeasuredHeight(), mContent.getMeasuredWidth(), mHandle.getMeasuredHeight()+mContent.getMeasuredHeight());
+                if(mHandle!=null)
+                    mHandle.layout(handleLeft, 0, handleLeft+mHandleWidth, mHandleHeight);
+                mContent.layout(0, mHandleHeight, mContent.getMeasuredWidth(), mHandleHeight+mContent.getMeasuredHeight());
                 break;
         }
         mInLayout=false;

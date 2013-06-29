@@ -10,14 +10,14 @@
         android:layout_height="match_parent">
 
 
-    <com.kedzie.drawer.drag.DraggedLinearLayout
+    <com.kedzie.drawer.drag.DraggedViewGroup
             android:id="@+id/left"
             android:layout_width="400dp"
             android:layout_height="400dp"
             kedzie:handle="@+id/left_handle"
             kedzie:content="@+id/left_content"
             kedzie:type="left"
-            kedzie:shadow="@drawable/drawer_shadow"
+            kedzie:shadow="@drawable/shadow_grad_left"
             android:layout_marginTop="24dp">
 
         <RelativeLayout
@@ -32,21 +32,22 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/left_handle"
-                   android:src="@drawable/handle"
-                   android:gravity="center"
-                   android:layout_width="70dp"
-                   android:layout_height="400dp"/>
+                   android:src="@drawable/drawer_handle_left_closed"
+                   android:layout_gravity="top"
+                   android:layout_marginTop="14dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
 
-    </com.kedzie.drawer.drag.DraggedLinearLayout>
+    </com.kedzie.drawer.drag.DraggedViewGroup>
 
-    <com.kedzie.drawer.drag.DraggedLinearLayout
+    <com.kedzie.drawer.drag.DraggedViewGroup
             android:id="@+id/bottom"
             android:layout_width="400dp"
             android:layout_height="250dp"
             kedzie:handle="@+id/bottom_handle"
             kedzie:content="@+id/bottom_content"
             kedzie:type="bottom"
-            kedzie:shadow="@drawable/shadow_bottom"
+            kedzie:shadow="@drawable/shadow_grad_bottom"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="18dp">
@@ -55,7 +56,7 @@
                 android:id="@id/bottom_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffa627">
+                android:background="#FF0000FF">
             <TextView android:text="BOTTOM"
                       android:layout_centerInParent="true"
                       android:layout_width="wrap_content"
@@ -63,21 +64,21 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/bottom_handle"
-                   android:src="@drawable/handle"
+                   android:background="@drawable/handle"
                    android:layout_width="100dp"
-                   android:layout_height="70dp"
-                   android:gravity="center"/>
+                   android:layout_height="24dp"
+                   android:layout_gravity="center"/>
 
-    </com.kedzie.drawer.drag.DraggedLinearLayout>
+    </com.kedzie.drawer.drag.DraggedViewGroup>
 
-    <com.kedzie.drawer.drag.DraggedLinearLayout
+    <com.kedzie.drawer.drag.DraggedViewGroup
             android:id="@+id/top"
             android:layout_width="300dp"
             android:layout_height="300dp"
             kedzie:handle="@+id/top_handle"
             kedzie:content="@+id/top_content"
             kedzie:type="top"
-            kedzie:shadow="@drawable/shadow_top"
+            kedzie:shadow="@drawable/shadow_grad_top"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true">
 
@@ -85,7 +86,7 @@
                 android:id="@id/top_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FF00FFFF">
+                android:background="#FF0000FF">
             <TextView android:text="TOP"
                       android:layout_centerInParent="true"
                       android:layout_width="wrap_content"
@@ -93,11 +94,11 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/top_handle"
-                   android:src="@drawable/handle"
-                   android:gravity="center"
+                   android:background="@drawable/handle"
+                   android:layout_gravity="center"
                    android:layout_width="200dp"
-                   android:layout_height="70dp"/>
+                   android:layout_height="30dp"/>
 
-    </com.kedzie.drawer.drag.DraggedLinearLayout>
+    </com.kedzie.drawer.drag.DraggedViewGroup>
 
 </com.kedzie.drawer.drag.DragLayout>

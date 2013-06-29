@@ -2,5 +2,6 @@
 
 <resources>
     
-    <color name="scrim">#96000000</color>
+    <color name="scrim">#7D000000</color>
+    <color name="shadow">#96000000</color>
 </resources>
