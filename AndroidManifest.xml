@@ -15,7 +15,7 @@
         android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
 
         <activity
-                android:name=".drag.DraggerActivity"
+                android:name=".DraggerActivity"
                 android:label="Drawers" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

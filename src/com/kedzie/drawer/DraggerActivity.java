@@ -1,5 +1,5 @@
 
-package com.kedzie.drawer.drag;
+package com.kedzie.drawer;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.kedzie.drawer.R;
 
 public class DraggerActivity extends Activity {
     private static final String TAG = "DraggerActivity";
