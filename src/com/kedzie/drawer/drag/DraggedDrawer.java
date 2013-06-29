@@ -17,8 +17,8 @@ import com.kedzie.drawer.R;
 /**
  * Draggable drawer implementation based on a linear layout
  */
-public class DraggedLinearLayout extends LinearLayout {
-    public static final String TAG = "DraggedLinearLayout";
+public class DraggedDrawer extends LinearLayout {
+    public static final String TAG = "DraggedDrawer";
 
     public static final int DRAWER_LEFT=1;
     public static final int DRAWER_RIGHT=2;
@@ -39,7 +39,7 @@ public class DraggedLinearLayout extends LinearLayout {
     private Drawable mShadowDrawable;
 
 
-    public DraggedLinearLayout(Context context, AttributeSet attrs) {
+    public DraggedDrawer(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
@@ -55,7 +55,7 @@ public class DraggedLinearLayout extends LinearLayout {
     /**
      * @param context
      */
-    public DraggedLinearLayout(Context context) {
+    public DraggedDrawer(Context context) {
         super(context);
     }
 

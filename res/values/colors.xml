@@ -2,6 +2,6 @@
 
 <resources>
     
-    <color name="scrim">#7D000000</color>
-    <color name="shadow">#96000000</color>
+    <color name="drawer_scrim">#7D000000</color>
+    <color name="drawer_shadow">#96000000</color>
 </resources>

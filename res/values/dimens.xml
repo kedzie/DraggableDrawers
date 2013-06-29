@@ -3,14 +3,11 @@
 <resources>
 
     <!-- Minimum fling velocity for drawers (dp/second)-->
-    <integer name="min_fling_velocity">200</integer>
-
+    <integer name="drawer_min_fling_velocity">200</integer>
     <!-- How long to wait before peeking a drawer (ms) -->
-    <integer name="peek_delay">160</integer>
-
+    <integer name="drawer_peek_delay">160</integer>
     <!-- How far to slide the panel out when you touch it -->
-    <dimen name="peek_height">84dp</dimen>
-
+    <dimen name="drawer_peek_height">84dp</dimen>
     <!-- Drawer shadow length -->
     <dimen name="drawer_shadow_length">15dp</dimen>
 

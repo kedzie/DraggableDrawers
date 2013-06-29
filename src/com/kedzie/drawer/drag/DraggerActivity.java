@@ -15,7 +15,7 @@ public class DraggerActivity extends Activity {
     private static final String TAG = "DraggerActivity";
 
     private DragLayout mLayout;
-    private DraggedLinearLayout leftDrawer;
+    private DraggedDrawer leftDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class DraggerActivity extends Activity {
             }
         });
 
-        leftDrawer = (DraggedLinearLayout)findViewById(R.id.left);
+        leftDrawer = (DraggedDrawer)findViewById(R.id.left);
     }
 
     @Override

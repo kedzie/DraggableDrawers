@@ -4,7 +4,7 @@
        android:shape="rectangle">
 
     <gradient android:startColor="#00000000"
-              android:endColor="@color/shadow"/>
+              android:endColor="@color/drawer_shadow"/>
 
     <size android:width="@dimen/drawer_shadow_length" android:height="100dp" />
 

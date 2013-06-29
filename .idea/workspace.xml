@@ -465,15 +465,20 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Drawers" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b789f247-cdfd-4cea-83d1-dad1d2524ddc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/util/Utils.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedLinearLayout.java" afterPath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedDrawer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DragLayout.java" afterPath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DragLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedLinearLayout.java" afterPath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedLinearLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedViewGroup.java" afterPath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedViewGroup.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java" afterPath="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/dimens.xml" afterPath="$PROJECT_DIR$/res/values/dimens.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/drawer_layout.xml" afterPath="$PROJECT_DIR$/res/layout/drawer_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml" afterPath="$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/shadow_grad_left.xml" afterPath="$PROJECT_DIR$/res/drawable/shadow_grad_left.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/shadow_grad_right.xml" afterPath="$PROJECT_DIR$/res/drawable/shadow_grad_right.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/shadow_grad_top.xml" afterPath="$PROJECT_DIR$/res/drawable/shadow_grad_top.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="sliding-panel.iws" />
@@ -546,7 +551,26 @@
     <favorites_list name="sliding-panel" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="DraggedDrawer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedDrawer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="131" column="16" selection-start="4132" selection-end="4132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1995">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DraggerActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="0" selection-start="1686" selection-end="1686" vertical-scroll-proportion="1.0400616" vertical-offset="0" max-vertical-offset="1080">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -569,19 +593,19 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/drawable/gradient_bottom.xml" />
-        <option value="$PROJECT_DIR$/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/res/drawable/shadow_top.xml" />
         <option value="$PROJECT_DIR$/res/drawable/gradient_left.xml" />
-        <option value="$PROJECT_DIR$/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_right.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_left.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_top.xml" />
-        <option value="$PROJECT_DIR$/res/layout/drawer_layout.xml" />
         <option value="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedLinearLayout.java" />
         <option value="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedViewGroup.java" />
-        <option value="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DragLayout.java" />
+        <option value="$PROJECT_DIR$/res/layout/drawer_layout.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_left.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_top.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/shadow_grad_right.xml" />
+        <option value="$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java" />
       </list>
     </option>
   </component>
@@ -629,8 +653,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="205" />
-    <option name="y" value="206" />
+    <option name="x" value="312" />
+    <option name="y" value="179" />
     <option name="width" value="1498" />
     <option name="height" value="850" />
   </component>
@@ -688,168 +712,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="sliding-panel" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.google.android:android:4.2.2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-4.2.2.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.google.android:android:4.2.2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-4.2.2.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.google.android:android:4.2.2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-4.2.2.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.google.android:android:4.2.2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android-4.2.2.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.android.support:support-v4:13.0.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support-v4-13.0.0.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.android.support:support-v4:13.0.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support-v4-13.0.0.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="widget" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: com.android.support:support-v4:13.0.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="support-v4-13.0.0.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sliding-panel" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -909,6 +771,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sliding-panel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SlidingPanel" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1142,7 +1022,7 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="StructureViewFactory">
-    <option name="ACTIVE_ACTIONS" value="ALPHA_COMPARATOR" />
+    <option name="ACTIVE_ACTIONS" value="SHOW_PROPERTIES,ALPHA_COMPARATOR,SHOW_FIELDS" />
   </component>
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
     <option name="USER" value="" />
@@ -1171,7 +1051,15 @@
       <created>1372433540127</created>
       <updated>1372433540127</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Closed on startup. back key.">
+      <created>1372495222325</created>
+      <updated>1372495222325</updated>
+    </task>
+    <task id="LOCAL-00003" summary="tap to close">
+      <created>1372496724782</created>
+      <updated>1372496724782</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1195,33 +1083,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="205" y="206" width="1498" height="850" extended-state="0" />
+    <frame x="312" y="179" width="1498" height="850" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TCPMON" active="false" anchor="right" auto_hide="true" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.32984978" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2825175" sideWeight="0.72737956" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.7884078" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36354378" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31007752" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25368732" sideWeight="0.3058659" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32735962" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25163826" sideWeight="0.3022432" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23746313" sideWeight="0.82611734" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32197416" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" x="396" y="393" width="1396" height="275" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23746313" sideWeight="0.7884078" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45132744" sideWeight="0.7884078" order="10" side_tool="false" content_ui="tabs" x="396" y="393" width="1396" height="275" />
       <window_info id="Gerrit" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992035" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32855436" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.24820378" sideWeight="0.69638556" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19007185" sideWeight="0.74618095" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17388268" sideWeight="0.74618095" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25368732" sideWeight="0.82611734" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21159218" sideWeight="0.74618095" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25368732" sideWeight="0.7884078" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28319162" sideWeight="0.72737956" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39784947" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1268,7 +1156,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on layouts" />
+    <option name="LAST_COMMIT_MESSAGE" value="tap to close" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1283,93 +1171,16 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="Working on layouts" />
+    <MESSAGE value="Closed on startup. back key." />
+    <MESSAGE value="tap to close" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/values/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="43" selection-start="454" selection-end="454" vertical-scroll-proportion="0.34653464" vertical-offset="0" max-vertical-offset="606">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_top.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="14" selection-start="247" selection-end="247" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_right.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="235" selection-end="235" vertical-scroll-proportion="0.17326732" vertical-offset="0" max-vertical-offset="606" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_left.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="44" selection-start="146" selection-end="235" vertical-scroll-proportion="0.14851485" vertical-offset="0" max-vertical-offset="606" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="58" selection-start="249" selection-end="249" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/drawer_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="50" selection-start="1572" selection-end="1572" vertical-scroll-proportion="0.4609475" vertical-offset="180" max-vertical-offset="1650">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/android/support/support-v4/13.0.0/support-v4-13.0.0-sources.jar!/android/support/v4/widget/ViewDragHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1306" column="0" selection-start="53601" selection-end="53601" vertical-scroll-proportion="0.42405832" vertical-offset="18776" max-vertical-offset="21360">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="101" selection-start="1593" selection-end="1593" vertical-scroll-proportion="1.3611615" vertical-offset="0" max-vertical-offset="1365">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="34" selection-start="133" selection-end="133" vertical-scroll-proportion="0.13297872" vertical-offset="0" max-vertical-offset="564">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedViewGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="205" column="5" selection-start="7196" selection-end="7196" vertical-scroll-proportion="5.9631147" vertical-offset="0" max-vertical-offset="4020">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedLinearLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="137" column="5" selection-start="4144" selection-end="4305" vertical-scroll-proportion="3.8422132" vertical-offset="0" max-vertical-offset="1995">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../android-sdk/sources/android-17/android/widget/RelativeLayout.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="974" column="19" selection-start="37353" selection-end="37353" vertical-scroll-proportion="-5.610063" vertical-offset="16671" max-vertical-offset="24930">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="25" selection-start="1936" selection-end="1936" vertical-scroll-proportion="0.0" vertical-offset="611" max-vertical-offset="1260">
           <folding />
         </state>
       </provider>
@@ -1381,20 +1192,105 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-mdpi/sliding_drawer_handle_bottom.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="51" selection-start="57" selection-end="480" vertical-scroll-proportion="0.34591195" vertical-offset="0" max-vertical-offset="477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/attr.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="24" selection-start="57" selection-end="891" vertical-scroll-proportion="0.7861635" vertical-offset="0" max-vertical-offset="510">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/android/support/support-v4/13.0.0/support-v4-13.0.0-sources.jar!/android/support/v4/widget/DrawerLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1148" column="4" selection-start="43815" selection-end="43901" vertical-scroll-proportion="-2.6764705" vertical-offset="16559" max-vertical-offset="22785">
+        <state line="502" column="8" selection-start="18625" selection-end="18672" vertical-scroll-proportion="0.46275395" vertical-offset="6755" max-vertical-offset="22785">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedDrawer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="131" column="16" selection-start="4132" selection-end="4132" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1995">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/drawer_layout.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="42" selection-start="408" selection-end="408" vertical-scroll-proportion="-2.543578" vertical-offset="1214" max-vertical-offset="1650">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="4" selection-start="61" selection-end="155" vertical-scroll-proportion="0.12578617" vertical-offset="0" max-vertical-offset="477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_bottom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="48" selection-start="190" selection-end="190" vertical-scroll-proportion="0.1572327" vertical-offset="0" max-vertical-offset="477">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DragLayout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="580" column="13" selection-start="21205" selection-end="21205" vertical-scroll-proportion="2.0" vertical-offset="7724" max-vertical-offset="11130">
+        <state line="109" column="0" selection-start="3813" selection-end="3813" vertical-scroll-proportion="0.5597484" vertical-offset="1368" max-vertical-offset="11250">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3187#3222#0" expanded="true" />
+            <element signature="e#3181#3210#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggedViewGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="205" column="5" selection-start="7196" selection-end="7196" vertical-scroll-proportion="6.100629" vertical-offset="0" max-vertical-offset="4020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_left.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="48" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="240">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_top.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="48" selection-start="189" selection-end="189" vertical-scroll-proportion="0.1572327" vertical-offset="0" max-vertical-offset="477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/shadow_grad_right.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="46" selection-start="232" selection-end="232" vertical-scroll-proportion="0.18867925" vertical-offset="0" max-vertical-offset="477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/kedzie/drawer/drag/DraggerActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="0" selection-start="1686" selection-end="1686" vertical-scroll-proportion="1.0400616" vertical-offset="0" max-vertical-offset="1080">
+          <folding />
         </state>
       </provider>
     </entry>
