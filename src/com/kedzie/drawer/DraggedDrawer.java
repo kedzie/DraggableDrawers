@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+
 /**
  * Draggable drawer with content and visible handle for all orientations.  For
  * dragging capabilities must be placed inside a {@link DragLayout}.
@@ -99,6 +100,14 @@ public class DraggedDrawer extends LinearLayout {
         } finally {
             a.recycle();
         }
+    }
+
+    /**
+     * Subscribe to drawer events
+     * @param listener  the listener
+     */
+    public void setDrawerListener(DrawerListener listener) {
+        mListener = listener;
     }
 
     @Override

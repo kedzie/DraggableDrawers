@@ -83,7 +83,7 @@ public class DragLayout extends RelativeLayout {
     /** Current state of drawers */
     private int mDrawerState;
 
-    private static final int DEFAULT_SCRIM_COLOR = 0x7D000000;
+    private static final int DEFAULT_SCRIM_COLOR = 0x96000000;
     private int mScrimColor;
     private float mScrimOpacity;
     private DrawerListener mListener;
@@ -254,26 +254,24 @@ public class DragLayout extends RelativeLayout {
         mInLayout=true;
         super.onLayout(changed, l, t, r, b);
         //Close all drawers on initial layout
-        if(mFirstLayout) {
-            for(DraggedDrawer drawerView : mDrawers.keySet()) {
-                switch(drawerView.getDrawerType()) {
-                    case DraggedDrawer.DRAWER_LEFT:
-                        drawerView.offsetLeftAndRight(drawerView.getHandleSize() - drawerView.getWidth());
-                        break;
-                    case DraggedDrawer.DRAWER_RIGHT:
-                        drawerView.offsetLeftAndRight(drawerView.getWidth()-drawerView.getHandleSize());
-                        break;
-                    case DraggedDrawer.DRAWER_TOP:
-                        drawerView.offsetTopAndBottom(drawerView.getHandleSize()-drawerView.getHeight());
-                        break;
-                    case DraggedDrawer.DRAWER_BOTTOM:
-                        drawerView.offsetTopAndBottom(drawerView.getHeight() - drawerView.getHandleSize());
-                        break;
-                }
-                LayoutParams lp = (LayoutParams)drawerView.getLayoutParams();
-                if(lp.onScreen==0f)
-                    drawerView.setContentVisibility(INVISIBLE);
+        for(DraggedDrawer drawerView : mDrawers.keySet()) {
+            switch(drawerView.getDrawerType()) {
+                case DraggedDrawer.DRAWER_LEFT:
+                    drawerView.offsetLeftAndRight(drawerView.getHandleSize() - drawerView.getWidth());
+                    break;
+                case DraggedDrawer.DRAWER_RIGHT:
+                    drawerView.offsetLeftAndRight(drawerView.getWidth()-drawerView.getHandleSize());
+                    break;
+                case DraggedDrawer.DRAWER_TOP:
+                    drawerView.offsetTopAndBottom(drawerView.getHandleSize()-drawerView.getHeight());
+                    break;
+                case DraggedDrawer.DRAWER_BOTTOM:
+                    drawerView.offsetTopAndBottom(drawerView.getHeight() - drawerView.getHandleSize());
+                    break;
             }
+            LayoutParams lp = (LayoutParams)drawerView.getLayoutParams();
+            if(lp.onScreen==0f)
+                drawerView.setContentVisibility(INVISIBLE);
         }
         mInLayout=false;
         mFirstLayout=false;
@@ -763,8 +761,6 @@ public class DragLayout extends RelativeLayout {
     public static class DrawerHolder {
         public ViewDragHelper helper;
         public DragCallback callback;
-
-        public DrawerHolder() {}
 
         public DrawerHolder(ViewDragHelper helper, DragCallback callback) {
             this.helper=helper;
