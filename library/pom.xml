@@ -64,20 +64,19 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>0.8-SNAPSHOT</version>
+				<version>0.9-SNAPSHOT</version>
 				<configuration>
 					<message>Creating site for ${project.version}.</message>
 					<force>true</force>
-					<merge>true</merge>
-					<path>maven</path>
+					<merge>false</merge>
 				</configuration>
- 				<!--executions>
+ 				<executions>
 					<execution>
 						<id>ghsite</id>
 						<phase>site</phase>
 						<goals><goal>site</goal></goals>
 					</execution>
-				</executions-->
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

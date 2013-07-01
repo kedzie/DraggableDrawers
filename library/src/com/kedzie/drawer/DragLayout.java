@@ -1,5 +1,8 @@
 package com.kedzie.drawer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -17,9 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.RelativeLayout;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Layout which handles sliding drawers in all directions.
@@ -48,6 +48,13 @@ public class DragLayout extends RelativeLayout {
         public void onDrawerOpened(View drawerView);
 
         /**
+         * Called when a drawer starts dragging open.
+         *
+         * @param drawerView Drawer view that is now opening
+         */
+        public void onDrawerOpening(View drawerView);
+
+        /**
          * Called when a drawer has settled in a completely closed state.
          *
          * @param drawerView Drawer view that is now closed
@@ -71,6 +78,7 @@ public class DragLayout extends RelativeLayout {
         @Override public void onDrawerOpened(View drawerView) {}
         @Override public void onDrawerClosed(View drawerView) {}
         @Override public void onDrawerStateChanged(int newState) {}
+        @Override public void onDrawerOpening(View drawerView) {}
     }
 
     /** Indicates that any drawers are in an idle, settled state. No animation is in progress. */
@@ -205,11 +213,14 @@ public class DragLayout extends RelativeLayout {
      * Close all the drawers
      */
     public void closeAllDrawers() {
-        Log.d(TAG, "Closing all drawers");
-        for(int i=0; i<getChildCount(); i++) {
-            View child = getChildAt(i);
-            if(child instanceof DraggedDrawer)
-                closeDrawer((DraggedDrawer)child);
+        closeAllDrawers(null);
+    }
+
+    private void closeAllDrawers(DraggedDrawer except) {
+        Log.d(TAG, "Closing all drawers " + (except==null ? "" : " except 1"));
+        for(DraggedDrawer drawer : mDrawers.keySet()) {
+            if(except==null || except!=drawer)
+                closeDrawer(drawer);
         }
     }
 
@@ -253,25 +264,25 @@ public class DragLayout extends RelativeLayout {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         mInLayout=true;
         super.onLayout(changed, l, t, r, b);
-        //Close all drawers on initial layout
         for(DraggedDrawer drawerView : mDrawers.keySet()) {
-            switch(drawerView.getDrawerType()) {
-                case DraggedDrawer.DRAWER_LEFT:
-                    drawerView.offsetLeftAndRight(drawerView.getHandleSize() - drawerView.getWidth());
-                    break;
-                case DraggedDrawer.DRAWER_RIGHT:
-                    drawerView.offsetLeftAndRight(drawerView.getWidth()-drawerView.getHandleSize());
-                    break;
-                case DraggedDrawer.DRAWER_TOP:
-                    drawerView.offsetTopAndBottom(drawerView.getHandleSize()-drawerView.getHeight());
-                    break;
-                case DraggedDrawer.DRAWER_BOTTOM:
-                    drawerView.offsetTopAndBottom(drawerView.getHeight() - drawerView.getHandleSize());
-                    break;
-            }
             LayoutParams lp = (LayoutParams)drawerView.getLayoutParams();
-            if(lp.onScreen==0f)
+            if(lp.onScreen==0f) {
                 drawerView.setContentVisibility(INVISIBLE);
+                switch(drawerView.getDrawerType()) {
+                    case DraggedDrawer.DRAWER_LEFT:
+                        drawerView.offsetLeftAndRight(drawerView.getHandleSize() - drawerView.getWidth());
+                        break;
+                    case DraggedDrawer.DRAWER_RIGHT:
+                        drawerView.offsetLeftAndRight(drawerView.getWidth()-drawerView.getHandleSize());
+                        break;
+                    case DraggedDrawer.DRAWER_TOP:
+                        drawerView.offsetTopAndBottom(drawerView.getHandleSize()-drawerView.getHeight());
+                        break;
+                    case DraggedDrawer.DRAWER_BOTTOM:
+                        drawerView.offsetTopAndBottom(drawerView.getHeight() - drawerView.getHandleSize());
+                        break;
+                }
+            }
         }
         mInLayout=false;
         mFirstLayout=false;
@@ -439,6 +450,11 @@ public class DragLayout extends RelativeLayout {
      * Should be called whenever a ViewDragHelper's state changes to notify listeners.
      */
     void updateDrawerState(int activeState, DraggedDrawer activeDrawer) {
+        if(activeState!=activeDrawer.mState) {
+            activeDrawer.mState=activeState;
+            if(activeDrawer.mListener!=null)
+                activeDrawer.mListener.onDrawerStateChanged(activeState);
+        }
         int state = -1;
 
         for(DrawerHolder holder : mDrawers.values()) {
@@ -470,8 +486,6 @@ public class DragLayout extends RelativeLayout {
             mDrawerState = state;
             if (mListener != null)
                 mListener.onDrawerStateChanged(state);
-            if(activeDrawer.mListener!=null)
-                activeDrawer.mListener.onDrawerStateChanged(activeState);
         }
     }
 
@@ -493,15 +507,11 @@ public class DragLayout extends RelativeLayout {
      * @param drawerView    The drawer relevant to the event
      */
     private void dispatchOnDrawerClosed(DraggedDrawer drawerView) {
-        final LayoutParams lp = (LayoutParams) drawerView.getLayoutParams();
-        if (lp.knownOpen) {
-            lp.knownOpen = false;
-            if (mListener != null)
-                mListener.onDrawerClosed(drawerView);
-            if(drawerView.mListener!=null)
-                drawerView.mListener.onDrawerClosed();
-            sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-        }
+        if (mListener != null)
+            mListener.onDrawerClosed(drawerView);
+        if(drawerView.mListener!=null)
+            drawerView.mListener.onDrawerClosed();
+        sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
     }
 
     /**
@@ -509,15 +519,22 @@ public class DragLayout extends RelativeLayout {
      * @param drawerView    The drawer relevant to the event
      */
     private void dispatchOnDrawerOpened(DraggedDrawer drawerView) {
-        final LayoutParams lp = (LayoutParams) drawerView.getLayoutParams();
-        if (!lp.knownOpen) {
-            lp.knownOpen = true;
-            if (mListener != null)
-                mListener.onDrawerOpened(drawerView);
-            if(drawerView.mListener!=null)
-                drawerView.mListener.onDrawerOpened();
-            drawerView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-        }
+        if (mListener != null)
+            mListener.onDrawerOpened(drawerView);
+        if(drawerView.mListener!=null)
+            drawerView.mListener.onDrawerOpened();
+        drawerView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+    }
+
+    /**
+     * Dispatch drawer open event to registered listener
+     * @param drawerView    The drawer relevant to the event
+     */
+    private void dispatchOnDrawerOpening(DraggedDrawer drawerView) {
+        if (mListener != null)
+            mListener.onDrawerOpening(drawerView);
+//        if(drawerView.mListener!=null)
+//            drawerView.mListener.onDrawerOpening();
     }
 
     /**
@@ -607,16 +624,15 @@ public class DragLayout extends RelativeLayout {
                     offset = (float) (childWidth + left) / childWidth;
                     break;
                 case DraggedDrawer.DRAWER_RIGHT:
-                    offset = (float) (getWidth() - left) / childWidth;
+                    offset = (float) (getWidth() - left - dragView.getHandleSize()) / childWidth;
                     break;
                 case DraggedDrawer.DRAWER_TOP:
                     offset = (float) (childHeight + top) / childHeight;
                     break;
                 case DraggedDrawer.DRAWER_BOTTOM:
-                    offset = (float) (getHeight() - top) / childHeight;
+                    offset = (float) (getHeight() - top - dragView.getHandleSize()) / childHeight;
                     break;
             }
-            offset = Math.min(offset, 1f);
             setDrawerViewOffset(dragView, offset);
             dragView.setContentVisibility(offset > 0f ? VISIBLE : INVISIBLE);
             invalidate();
@@ -624,17 +640,14 @@ public class DragLayout extends RelativeLayout {
 
         @Override
         public void onViewCaptured(View capturedChild, int activePointerId) {
+            Log.v(TAG,"onViewCaptured");
+            final DraggedDrawer dragView = (DraggedDrawer)capturedChild;
             final LayoutParams lp = (LayoutParams) capturedChild.getLayoutParams();
-            closeOtherDrawers((DraggedDrawer)capturedChild);
-        }
-
-        private void closeOtherDrawers(DraggedDrawer dragView) {
-            for(int i=0; i<getChildCount(); i++) {
-                View child = getChildAt(i);
-                if(child instanceof DraggedDrawer && child != dragView) {
-                    closeDrawer((DraggedDrawer)child);
-                }
-            }
+            if(lp.onScreen==0f)
+                dispatchOnDrawerOpening(dragView);
+            closeAllDrawers(dragView);
+            if(dragView.getHandle()!=null)
+                dragView.getHandle().setPressed(true);
         }
 
         @Override
@@ -643,6 +656,8 @@ public class DragLayout extends RelativeLayout {
             final int childWidth = releasedChild.getWidth();
             final int childHeight = releasedChild.getHeight();
             final DraggedDrawer dragView = (DraggedDrawer)releasedChild;
+            if(dragView.getHandle()!=null)
+                dragView.getHandle().setPressed(false);
 
             int left=releasedChild.getLeft();
             int top=releasedChild.getTop();
@@ -669,8 +684,8 @@ public class DragLayout extends RelativeLayout {
 
         @Override
         public int getViewHorizontalDragRange(View child) {
+            if(!(child instanceof DraggedDrawer)) return 0;
             final DraggedDrawer dragView = (DraggedDrawer)child;
-
             switch(dragView.getDrawerType()) {
                 case DraggedDrawer.DRAWER_LEFT:
                 case DraggedDrawer.DRAWER_RIGHT:
@@ -683,6 +698,7 @@ public class DragLayout extends RelativeLayout {
 
         @Override
         public int getViewVerticalDragRange(View child) {
+            if(!(child instanceof DraggedDrawer)) return 0;
             final DraggedDrawer dragView = (DraggedDrawer)child;
             switch(dragView.getDrawerType()) {
                 case DraggedDrawer.DRAWER_BOTTOM:
@@ -731,8 +747,8 @@ public class DragLayout extends RelativeLayout {
      */
     public static class LayoutParams extends RelativeLayout.LayoutParams{
 
-        float onScreen;
-        boolean knownOpen;
+        public float onScreen;
+        public boolean knownOpen;
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
@@ -761,6 +777,8 @@ public class DragLayout extends RelativeLayout {
     public static class DrawerHolder {
         public ViewDragHelper helper;
         public DragCallback callback;
+
+        public DrawerHolder() {}
 
         public DrawerHolder(ViewDragHelper helper, DragCallback callback) {
             this.helper=helper;

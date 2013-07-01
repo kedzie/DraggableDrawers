@@ -2,6 +2,8 @@
 
 Drag drawers with handles in any direction.
 
+![DraggableDrawers Screenshot](screenshot.jpg "DraggableDrawers in Action")
+
 ##Usage
 
 Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content view, an optional handle, and choice of direction.  For example:

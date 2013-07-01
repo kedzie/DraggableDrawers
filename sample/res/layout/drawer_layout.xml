@@ -32,7 +32,7 @@
         </RelativeLayout>
 
         <ImageView android:id="@id/left_handle"
-                   android:src="@drawable/drawer_handle_left_closed"
+                   android:background="@drawable/handle"
                    android:layout_gravity="top"
                    android:layout_marginTop="14dp"
                    android:layout_width="wrap_content"

@@ -88,12 +88,13 @@ public class DraggedDrawer extends LinearLayout {
     private int mHandleId;
     /** Resource id of content view */
     private int mContentId;
+    int mState;
 
     public DraggedDrawer(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
-            mDrawerType = a.getInt(R.styleable.Drawer_type, 0);
+            mDrawerType = a.getInt(R.styleable.Drawer_type, DRAWER_LEFT);
             mHandleId = a.getResourceId(R.styleable.Drawer_handle, 0);
             mContentId = a.getResourceId(R.styleable.Drawer_content, 0);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
@@ -214,5 +215,13 @@ public class DraggedDrawer extends LinearLayout {
      */
     public View getContent() {
         return mContent;
+    }
+
+    /**
+     * Drawer state.  {@link DragLayout#STATE_IDLE}, {@link DragLayout#STATE_SETTLING} or {@link DragLayout#STATE_DRAGGING}
+     * @return
+     */
+    public int getState() {
+        return mState;
     }
 }
