@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0 http://maven.apache.org/xsd/decoration-1.4.0.xsd"
 	name="DraggableDrawers for Android">
 
-<!--
+
 <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
@@ -14,8 +14,8 @@
 <custom>
     <fluidoSkin>
 		<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-      <topBarEnabled>true</topBarEnabled>
-      <sideBarEnabled>false</sideBarEnabled>
+      <topBarEnabled>false</topBarEnabled>
+      <sideBarEnabled>true</sideBarEnabled>
 	<gitHub>
         <projectId>kedzie/DraggableDrawers</projectId>
         <ribbonOrientation>right</ribbonOrientation>
@@ -30,7 +30,7 @@
 <googlePlusOne />
     </fluidoSkin>
   </custom>
--->
+
 	<publishDate position="left"/>
 
 	<version position="right"/>
@@ -41,7 +41,7 @@
 
   <body>
     <menu name="Overview">
-      <item name="Introduction" href="readme.html"/>
+      <item name="Introduction" href="index.html"/>
     </menu>
 
 	<menu ref="reports"/>
@@ -51,7 +51,7 @@
     </menu>
 
 	<links>
-        <item name="Github" href="http://www.github.com/kedzie/DraggableDrawers"/>
+        <item name="Github Project Site" href="http://www.github.com/kedzie/DraggableDrawers"/>
     </links>
   </body>
 </project>

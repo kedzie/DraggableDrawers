@@ -17,6 +17,17 @@
 		<github.global.server>github</github.global.server>
 	</properties>
 
+	<scm>
+		<url>https://github.com/kedzie/DraggableDrawers</url>
+		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
+		<developerConnection>scm:git:git://github.com/kedzie/DraggableDrawers.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/kedzie/DraggableDrawers/issues</url>
+	</issueManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.google.android</groupId>
