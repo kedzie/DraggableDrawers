@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.draggabledrawers</groupId>
+	<artifactId>parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+
+	<name>DraggableDrawers for Android</name>
+	<description>Multidirectional Sliding Drawers for Android</description>
+
+	<url>http://kedzie.github.com/DraggableDrawers</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<modules>
+		<module>library</module>
+		<module>sample</module>
+	</modules>
+
+		<organization>
+		<name>Marek Kedzierski</name>
+		<url>http://kedzie.github.com</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<email>mark.kedzierski@gmail.com</email>
+			<name>Marek Kedzierski</name>
+			<url>http://kedzie.github.com</url>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/kedzie/DraggableDrawers</url>
+		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
+		<developerConnection>scm:git:git://github.com/kedzie/DraggableDrawers.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/kedzie/DraggableDrawers/issues</url>
+	</issueManagement>
+
+	<distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.android</groupId>
+				<artifactId>android</artifactId>
+				<version>4.1.1.4</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<sourceDirectory>${basedir}/src</sourceDirectory>
+		<directory>${basedir}/bin</directory>
+		<outputDirectory>${basedir}/bin/classes</outputDirectory>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>3.6.0</version>
+					<extensions>true</extensions>
+					<configuration>
+						<sdk><platform>17</platform></sdk>
+						<manifestVersionName/>
+						<manifestVersionCodeUpdateFromVersion>true</manifestVersionCodeUpdateFromVersion>
+						<attachSources>true</attachSources>
+					</configuration>
+					<executions>
+						<execution>
+							<id>manifest</id>
+							<phase>process-resources</phase>
+							<goals><goal>manifest-update</goal></goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+										<artifactId>android-maven-plugin</artifactId>
+										<versionRange>[3.6.0,)</versionRange>
+										<goals>
+											<goal>manifest-update</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

@@ -1,15 +1,10 @@
-#DraggableDrawers
-
-Drag drawers with handles in any direction.
-
-##Usage
+##Layout Example
 
 Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content view, an optional handle, and choice of direction.  For example:
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-
-<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
 <com.kedzie.drawer.DragLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:kedzie="http://schemas.android.com/apk/res-auto"
@@ -17,7 +12,6 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
         kedzie:scrim_color="@color/drawer_scrim"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/left"
@@ -111,7 +105,4 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
     </com.kedzie.drawer.DraggedDrawer>
 
 </com.kedzie.drawer.DragLayout>
-
 ```
-
-Look at the sample application for a complete example.
