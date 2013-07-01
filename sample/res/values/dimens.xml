@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <!-- Drawer shadow length -->
+    <dimen name="drawer_shadow_length">15dp</dimen>
+
+</resources>
