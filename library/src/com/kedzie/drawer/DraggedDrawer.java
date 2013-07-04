@@ -116,6 +116,9 @@ public class DraggedDrawer extends LinearLayout {
         super.onFinishInflate();
         mHandle = findViewById(mHandleId);
         mContent = findViewById(mContentId);
+
+        if(isInEditMode())
+            return;
         //keep the original layout params
         LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
         removeAllViews();

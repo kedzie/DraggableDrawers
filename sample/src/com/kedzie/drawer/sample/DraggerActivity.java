@@ -38,6 +38,12 @@ public class DraggerActivity extends Activity {
             }
 
             @Override
+            public void onDrawerOpening(View drawerView) {
+                Log.d(TAG, "onDrawerOpened: " + drawerView);
+                Toast.makeText(DraggerActivity.this, "onDrawerOpening: " + drawerView, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
             public void onDrawerClosed(View drawerView) {
                 Log.d(TAG, "onDrawerClosed: " + drawerView);
                 Toast.makeText(DraggerActivity.this, "onDrawerClosed: " + drawerView, Toast.LENGTH_SHORT).show();
