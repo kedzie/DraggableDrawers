@@ -1,8 +1,8 @@
 #DraggableDrawers
 
-Drag drawers with handles in any direction.
+Android Draggable drawer component with handles in any direction.
 
-![DraggableDrawers Screenshot](screenshot.jpg "DraggableDrawers in Action")
+![DraggableDrawers Screenshot](screenshot.png "DraggableDrawers in Action")
 
 ##Usage
 
