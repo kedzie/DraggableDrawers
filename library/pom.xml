@@ -4,14 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.draggabledrawers</groupId>
+		<groupId>com.github.kedzie.draggabledrawers</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
 
 	<artifactId>library</artifactId>
-
 	<packaging>apklib</packaging>
+
+	<name>DraggableDrawers for Android</name>
+	<description>Multidirectional Sliding Drawers for Android</description>	
+	<url>http://kedzie.github.com/DraggableDrawers</url>
 
 	<properties>
 		<github.global.server>github</github.global.server>

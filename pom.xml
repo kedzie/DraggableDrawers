@@ -4,14 +4,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.github.keddzie.draggabledrawers</groupId>
+	<groupId>com.github.kedzie.draggabledrawers</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0</version>
 
 	<name>DraggableDrawers for Android</name>
 	<description>Multidirectional Sliding Drawers for Android</description>
-
 	<url>http://kedzie.github.com/DraggableDrawers</url>
 	<inceptionYear>2013</inceptionYear>
 
@@ -70,9 +69,9 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>android</groupId>
+				<groupId>com.google.android</groupId>
 				<artifactId>android</artifactId>
-				<version>4.2.2_r2</version>
+				<version>4.1.1.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
