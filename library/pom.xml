@@ -23,8 +23,9 @@
 	<scm>
 		<url>https://github.com/kedzie/DraggableDrawers</url>
 		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
-		<developerConnection>scm:git:git://github.com/kedzie/DraggableDrawers.git</developerConnection>
-	</scm>
+		<developerConnection>scm:git:https://github.com/kedzie/DraggableDrawers.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.kedzie.draggabledrawers</groupId>
@@ -46,8 +45,9 @@
 	<scm>
 		<url>https://github.com/kedzie/DraggableDrawers</url>
 		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
-		<developerConnection>scm:git:git://github.com/kedzie/DraggableDrawers.git</developerConnection>
-	</scm>
+		<developerConnection>scm:git:https://github.com/kedzie/DraggableDrawers.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
@@ -123,7 +123,7 @@
 					<extensions>true</extensions>
 					<configuration>
 						<sdk><platform>17</platform></sdk>
-						<manifestVersionName/>
+						<manifestVersionName />
 						<manifestVersionCodeUpdateFromVersion>true</manifestVersionCodeUpdateFromVersion>
 						<attachSources>true</attachSources>
 					</configuration>
@@ -135,6 +135,20 @@
 						</execution>
 					</executions>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.4</version>
+					<executions>
+					  <execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+						  <goal>sign</goal>
+						</goals>
+					  </execution>
+					</executions>
+				</plugin>		
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -152,7 +166,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -172,25 +186,25 @@
 					<value>true</value>
 				</property>
 			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
-						<executions>
-						  <execution>
-							<id>sign-artifacts</id>
-							<phase>verify</phase>
-							<goals>
-							  <goal>sign</goal>
-							</goals>
-						  </execution>
-						</executions>
-					</plugin>
-				</plugins>
+			<build><plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.4</version>
+					<executions>
+					  <execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+						  <goal>sign</goal>
+						</goals>
+					  </execution>
+					</executions>
+				</plugin>	
+</plugins>
 			</build>
 		</profile>
 	</profiles>
+
 
 </project>
