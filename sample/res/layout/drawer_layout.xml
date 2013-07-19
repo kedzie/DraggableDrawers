@@ -9,10 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:layout_centerInParent="true"
+         android:textAppearance="?android:textAppearanceLarge"
+         android:text="Contents"/>
+
+        </RelativeLayout>
+
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/left"
-            android:layout_width="400dp"
+            android:layout_width="200dp"
             android:layout_height="400dp"
             kedzie:handle="@+id/left_handle"
             kedzie:content="@+id/left_content"
@@ -35,15 +49,15 @@
                    android:background="@drawable/handle"
                    android:layout_gravity="top"
                    android:layout_marginTop="14dp"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"/>
+                   android:layout_width="24dp"
+                   android:layout_height="80dp"/>
 
     </com.kedzie.drawer.DraggedDrawer>
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/right"
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="200dp"
+            android:layout_height="350dp"
             kedzie:handle="@+id/right_handle"
             kedzie:content="@+id/right_content"
             kedzie:type="right"
@@ -74,15 +88,14 @@
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/bottom"
-            android:layout_width="400dp"
+            android:layout_width="200dp"
             android:layout_height="250dp"
             kedzie:handle="@+id/bottom_handle"
             kedzie:content="@+id/bottom_content"
             kedzie:type="bottom"
             kedzie:shadow="@drawable/shadow_grad_bottom"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="18dp">
+            android:layout_centerHorizontal="true">
 
         <RelativeLayout
                 android:id="@id/bottom_content"
@@ -105,14 +118,14 @@
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/top"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:layout_width="150dp"
+            android:layout_height="225dp"
             kedzie:handle="@+id/top_handle"
             kedzie:content="@+id/top_content"
             kedzie:type="top"
             kedzie:shadow="@drawable/shadow_grad_top"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true">
+            android:layout_centerHorizontal="true">
 
         <RelativeLayout
                 android:id="@id/top_content"

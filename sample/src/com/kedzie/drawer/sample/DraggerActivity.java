@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,35 +26,31 @@ public class DraggerActivity extends Activity {
         setContentView(R.layout.drawer_layout);
 
         mLayout = (DragLayout)findViewById(R.id.drawer_layout);
-        mLayout.setDrawerListener(new DragLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                Log.d(TAG, "onDrawerSlide: " + slideOffset);
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                Log.d(TAG, "onDrawerOpened: " + drawerView);
-                Toast.makeText(DraggerActivity.this, "onDrawerOpened: " + drawerView, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDrawerOpening(View drawerView) {
-                Log.d(TAG, "onDrawerOpened: " + drawerView);
-                Toast.makeText(DraggerActivity.this, "onDrawerOpening: " + drawerView, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                Log.d(TAG, "onDrawerClosed: " + drawerView);
-                Toast.makeText(DraggerActivity.this, "onDrawerClosed: " + drawerView, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                Log.d(TAG, "onDrawerStateChanged: " + newState);
-            }
-        });
+//        mLayout.setDrawerListener(new DragLayout.DrawerListener() {
+//            @Override
+//            public void onDrawerSlide(View drawerView, float slideOffset) {
+//            }
+//
+//            @Override
+//            public void onDrawerOpened(View drawerView) {
+//                Log.d(TAG, "onDrawerOpened: " + drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerOpening(View drawerView) {
+//                Log.d(TAG, "onDrawerOpened: " + drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerClosed(View drawerView) {
+//                Log.d(TAG, "onDrawerClosed: " + drawerView);
+//            }
+//
+//            @Override
+//            public void onDrawerStateChanged(int newState) {
+//                Log.d(TAG, "onDrawerStateChanged: " + newState);
+//            }
+//        });
 
         leftDrawer = (DraggedDrawer)findViewById(R.id.left);
     }

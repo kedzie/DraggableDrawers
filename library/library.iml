@@ -23,11 +23,10 @@
       <excludeFolder url="file://$MODULE_DIR$/bin/generated-sources/combined-assets" />
       <excludeFolder url="file://$MODULE_DIR$/bin/generated-sources/combined-resources" />
       <excludeFolder url="file://$MODULE_DIR$/bin/generated-sources/extracted-dependencies" />
-      <excludeFolder url="file://$MODULE_DIR$/bin/javadoc-bundle-options" />
       <excludeFolder url="file://$MODULE_DIR$/bin/maven-archiver" />
-      <excludeFolder url="file://$MODULE_DIR$/bin/site" />
+      <excludeFolder url="file://$MODULE_DIR$/bin/test-classes" />
     </content>
-    <orderEntry type="jdk" jdkName="Maven Android 4.2.2 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android 4.2.2" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.android:android:4.1.1.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />

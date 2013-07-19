@@ -2,6 +2,9 @@ package com.kedzie.drawer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -116,9 +119,6 @@ public class DraggedDrawer extends LinearLayout {
         super.onFinishInflate();
         mHandle = findViewById(mHandleId);
         mContent = findViewById(mContentId);
-
-        if(isInEditMode())
-            return;
         //keep the original layout params
         LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
         removeAllViews();
@@ -188,18 +188,18 @@ public class DraggedDrawer extends LinearLayout {
      * @param visibility    Desired visibilty. i.e. {@link View#VISIBLE} {@link View#INVISIBLE} or {@link View#GONE}
      */
     public void setContentVisibility(int visibility) {
-        if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //removing from layout
-            Log.d(TAG, "Hiding content");
-            if(mDrawerType==DRAWER_LEFT)
-                mHandle.offsetLeftAndRight(mContent.getWidth());
-            else if(mDrawerType==DRAWER_TOP)
-                mHandle.offsetTopAndBottom(mContent.getHeight());
-        } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
+        if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
             Log.d(TAG, "Showing content");
             if(mDrawerType==DRAWER_LEFT)
-                mHandle.offsetLeftAndRight(-mContent.getWidth());
+                offsetLeftAndRight(-mContent.getWidth());
             else if(mDrawerType==DRAWER_TOP)
-                mHandle.offsetTopAndBottom(-mContent.getHeight());
+                offsetTopAndBottom(-mContent.getHeight());
+        } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
+            Log.d(TAG, "Hiding content");
+            if(mDrawerType==DRAWER_LEFT)
+                offsetLeftAndRight(mContent.getWidth());
+            else if(mDrawerType==DRAWER_TOP)
+                offsetTopAndBottom(mContent.getHeight());
         }
         mContent.setVisibility(visibility);
     }
@@ -227,4 +227,31 @@ public class DraggedDrawer extends LinearLayout {
     public int getState() {
         return mState;
     }
+
+    public boolean isHandleHit(int x, int y) {
+        Point point = mapPoint(mHandle, new Point(x, y));
+
+        Rect handleHit = new Rect();
+        mHandle.getHitRect(handleHit);
+
+        return handleHit.contains(point.x, point.y);
+    }
+
+    static Point mapPoint(View view, Point point) {
+        Point mapped = new Point(point.x, point.y);
+        Matrix matrix = view.getMatrix();
+        if(!matrix.isIdentity()) {
+            Matrix inverse = new Matrix();
+            matrix.invert(inverse);
+            float []n = { point.x, point.y };
+            matrix.mapPoints(n);
+            mapped.x= (int) n[0];
+            mapped.y= (int) n[1];
+        }
+        mapped.offset(-view.getLeft(), -view.getTop());
+        Log.d(TAG, "Mapped Point: " + mapped);
+        return mapped;
+    }
+
 }
+
