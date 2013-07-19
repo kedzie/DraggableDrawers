@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.github.kedzie.draggabledrawers</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>library</artifactId>
@@ -24,7 +24,7 @@
 		<url>https://github.com/kedzie/DraggableDrawers</url>
 		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
 		<developerConnection>scm:git:https://github.com/kedzie/DraggableDrawers.git</developerConnection>
-    <tag>v1.0.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
 	<issueManagement>
