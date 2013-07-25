@@ -6,9 +6,11 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -16,6 +18,12 @@ import android.widget.LinearLayout;
 /**
  * Draggable drawer with content and visible handle for all orientations.  For
  * dragging capabilities must be placed inside a {@link DragLayout}.
+ *
+ * @attr R.styleable#Drawer_type
+ * @attr R.styleable#Drawer_handleId
+ * @attr R.styleable#Drawer_contentId
+ * @attr R.styleable#Drawer_edgeDraggable
+ * @attr R.styleable#Drawer_shadow
  */
 public class DraggedDrawer extends LinearLayout {
     public static final String TAG = "DraggedDrawer";
@@ -71,36 +79,58 @@ public class DraggedDrawer extends LinearLayout {
     /** BOTTOM --> UP orientation */
     public static final int DRAWER_BOTTOM=4;
 
+    /** Indicates that any drawers are in an idle, settled state. No animation is in progress. */
+    public static final int STATE_IDLE = ViewDragHelper.STATE_IDLE;
+    /** Indicates that a drawer is currently being dragged by the user. */
+    public static final int STATE_DRAGGING = ViewDragHelper.STATE_DRAGGING;
+    /** Indicates that a drawer is in the process of settling to a final position. */
+    public static final int STATE_SETTLING = ViewDragHelper.STATE_SETTLING;
+
     /**
      * Drawer-specific event listener. For events relating to any drawer,
-     * see {@link DragLayout#setDrawerListener(DragLayout.DrawerListener)}
+     * see {@link DraggedDrawer#setDrawerListener(DrawerListener)}
      */
     DrawerListener mListener;
 
     /** Handle size */
     private int mHandleSize;
+
     /** Drawer orientation */
+    @ViewDebug.ExportedProperty(category = "layout")
     private int mDrawerType;
+
+    /** Drag from edge enabled? */
+    @ViewDebug.ExportedProperty(category = "layout")
+    private boolean mEdgeDraggable;
+
+    /** Resource id of handle view */
+    @ViewDebug.ExportedProperty(category = "layout")
+    private int mHandleId;
+
+    /** Resource id of content view */
+    @ViewDebug.ExportedProperty(category = "layout")
+    private int mContentId;
+
     /** Drawer handle.  Maybe <code>null</code> */
     private View mHandle;
     /** Drawer content */
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-    /** Resource id of handle view */
-    private int mHandleId;
-    /** Resource id of content view */
-    private int mContentId;
+
+    /** Current state i.e. {@link DraggedDrawer#STATE_DRAGGING} {@link DraggedDrawer#STATE_IDLE} */
     int mState;
+
 
     public DraggedDrawer(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
             mDrawerType = a.getInt(R.styleable.Drawer_type, DRAWER_LEFT);
-            mHandleId = a.getResourceId(R.styleable.Drawer_handle, 0);
-            mContentId = a.getResourceId(R.styleable.Drawer_content, 0);
+            mHandleId = a.getResourceId(R.styleable.Drawer_handleId, 0);
+            mContentId = a.getResourceId(R.styleable.Drawer_contentId, 0);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
+            mEdgeDraggable = a.getBoolean(R.styleable.Drawer_edgeDraggable, false);
         } finally {
             a.recycle();
         }
@@ -157,37 +187,13 @@ public class DraggedDrawer extends LinearLayout {
     }
 
     /**
-     * Handle view size. Zero if no handle.
-     * @return size of handle (width for horizontal drawers, height for vertical drawers)
-     */
-    public int getHandleSize() {
-        return mHandleSize;
-    }
-
-    /**
-     * Drawer orientation
-     * @return drawer orientation, i.e. DRAWER_LEFT, DRAWER_TOP, etc.
-     */
-    public int getDrawerType() {
-        return mDrawerType;
-    }
-
-    /**
-     * Get drawable to represent the drawer's shadow
-     * @return
-     */
-    public Drawable getShadowDrawable() {
-        return mShadowDrawable;
-    }
-
-    /**
      * Set visibility of content view.
      * This will alter the content visibility and make needed offsets to
      * maintain consistent view location.
      * <pre>drawer.getContent().setVisibility(View.GONE);</pre>
      * @param visibility    Desired visibilty. i.e. {@link View#VISIBLE} {@link View#INVISIBLE} or {@link View#GONE}
      */
-    public void setContentVisibility(int visibility) {
+    void setContentVisibility(int visibility) {
         if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
             Log.d(TAG, "Showing content");
             if(mDrawerType==DRAWER_LEFT)
@@ -221,23 +227,50 @@ public class DraggedDrawer extends LinearLayout {
     }
 
     /**
-     * Drawer state.  {@link DragLayout#STATE_IDLE}, {@link DragLayout#STATE_SETTLING} or {@link DragLayout#STATE_DRAGGING}
+     * Handle view size. Zero if no handle.
+     * @return size of handle (width for horizontal drawers, height for vertical drawers)
+     */
+    int getHandleSize() {
+        return mHandleSize;
+    }
+
+    /**
+     * Drawer orientation
+     * @return drawer orientation, i.e. DRAWER_LEFT, DRAWER_TOP, etc.
+     */
+    public int getDrawerType() {
+        return mDrawerType;
+    }
+
+    /**
+     * Get drawable to represent the drawer's shadow
      * @return
      */
-    public int getState() {
+    public Drawable getShadowDrawable() {
+        return mShadowDrawable;
+    }
+
+    /**
+     * Drawer state.
+     * {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_SETTLING} or {@link DraggedDrawer#STATE_DRAGGING}
+     * @return The state of the drawer
+     */
+    public int getDrawerState() {
         return mState;
     }
 
-    public boolean isHandleHit(int x, int y) {
-        Point point = mapPoint(mHandle, new Point(x, y));
+    public boolean isEdgeDraggable() {
+        return mEdgeDraggable;
+    }
 
+    boolean isHandleHit(int x, int y) {
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
-
+        Point point = mapPoint(this, new Point(x, y));
         return handleHit.contains(point.x, point.y);
     }
 
-    static Point mapPoint(View view, Point point) {
+    private static Point mapPoint(View view, Point point) {
         Point mapped = new Point(point.x, point.y);
         Matrix matrix = view.getMatrix();
         if(!matrix.isIdentity()) {
@@ -249,7 +282,6 @@ public class DraggedDrawer extends LinearLayout {
             mapped.y= (int) n[1];
         }
         mapped.offset(-view.getLeft(), -view.getTop());
-        Log.d(TAG, "Mapped Point: " + mapped);
         return mapped;
     }
 

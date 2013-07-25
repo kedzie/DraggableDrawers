@@ -14,9 +14,11 @@
         <!--Drawer shadow drawable -->
         <attr name="shadow" format="reference"/>
         <!-- handle view id -->
-        <attr name="handle" format="reference"/>
+        <attr name="handleId" format="reference"/>
         <!-- Content view id -->
-        <attr name="content" format="reference"/>
+        <attr name="contentId" format="reference"/>
+        <!-- Detect edge drags -->
+        <attr name="edgeDraggable" format="boolean"/>
     </declare-styleable>
 
     <!-- Drawer layout attributes -->

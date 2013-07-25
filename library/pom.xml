@@ -13,7 +13,7 @@
 	<packaging>apklib</packaging>
 
 	<name>DraggableDrawers for Android</name>
-	<description>Multidirectional Sliding Drawers for Android</description>	
+	<description>Multidirectional Sliding Drawer widget for Android</description>
 	<url>http://kedzie.github.io/DraggableDrawers</url>
 
 	<properties>
@@ -24,7 +24,7 @@
 		<url>https://github.com/kedzie/DraggableDrawers</url>
 		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
 		<developerConnection>scm:git:https://github.com/kedzie/DraggableDrawers.git</developerConnection>
-    <tag>HEAD</tag>
+        <tag>HEAD</tag>
   </scm>
 
 	<issueManagement>
@@ -38,6 +38,11 @@
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>annotations</artifactId>
+            <version>4.1.1.4</version>
+        </dependency>
 		<dependency>
 			<groupId>com.android.support</groupId>
 			<artifactId>support-v4</artifactId>
@@ -85,7 +90,7 @@
 		</plugins>
 	</build>
 
-<reporting>
+    <reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
