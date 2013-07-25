@@ -53,7 +53,7 @@ public class DraggedDrawer extends LinearLayout {
 
         /**
          * Called when the drawer motion state changes. The new state will
-         * be one of {@link DragLayout#STATE_IDLE}, {@link DragLayout#STATE_DRAGGING} or {@link DragLayout#STATE_SETTLING}.
+         * be one of {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_DRAGGING} or {@link DraggedDrawer#STATE_SETTLING}.
          *
          * @param newState The new drawer motion state
          */
@@ -150,7 +150,7 @@ public class DraggedDrawer extends LinearLayout {
         mHandle = findViewById(mHandleId);
         mContent = findViewById(mContentId);
         //keep the original layout params
-        LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
+        final LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
         removeAllViews();
 
         switch(mDrawerType) {
@@ -194,6 +194,7 @@ public class DraggedDrawer extends LinearLayout {
      * @param visibility    Desired visibilty. i.e. {@link View#VISIBLE} {@link View#INVISIBLE} or {@link View#GONE}
      */
     void setContentVisibility(int visibility) {
+        if(mContent==null) return;
         if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
             Log.d(TAG, "Showing content");
             if(mDrawerType==DRAWER_LEFT)
@@ -230,7 +231,7 @@ public class DraggedDrawer extends LinearLayout {
      * Handle view size. Zero if no handle.
      * @return size of handle (width for horizontal drawers, height for vertical drawers)
      */
-    int getHandleSize() {
+    public int getHandleSize() {
         return mHandleSize;
     }
 
@@ -259,11 +260,15 @@ public class DraggedDrawer extends LinearLayout {
         return mState;
     }
 
+    public void setDrawerState(int drawerState) {
+        mState=drawerState;
+    }
+
     public boolean isEdgeDraggable() {
         return mEdgeDraggable;
     }
 
-    boolean isHandleHit(int x, int y) {
+    public boolean isHandleHit(int x, int y) {
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
         Point point = mapPoint(this, new Point(x, y));

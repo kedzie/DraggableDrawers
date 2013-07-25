@@ -68,7 +68,7 @@ public class DragLayout extends RelativeLayout {
 
         /**
          * Called when the drawer motion state changes. The new state will
-         * be one of {@link #STATE_IDLE}, {@link #STATE_DRAGGING} or {@link #STATE_SETTLING}.
+         * be one of {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_DRAGGING} or {@link DraggedDrawer#STATE_SETTLING}.
          *
          * @param newState The new drawer motion state
          */
@@ -90,7 +90,7 @@ public class DragLayout extends RelativeLayout {
      * Multiplier for how sensitive the drag detection should be.
      * Larger values are more sensitive. 1.0f is normal.
      */
-    public static final float DRAG_SENSITIVITY = 0.75f;
+    public static final float DRAG_SENSITIVITY = 0.5f;
 
     private static final int DEFAULT_SCRIM_COLOR = 0x96000000;
 
@@ -132,7 +132,7 @@ public class DragLayout extends RelativeLayout {
 
         minFlingVelocity = getResources().getInteger(R.integer.drawer_min_fling_velocity) * getResources().getDisplayMetrics().density;
 
-        mEdgeDragHelper = ViewDragHelper.create(this, .5f, new EdgeCallback());
+        mEdgeDragHelper = ViewDragHelper.create(this, DRAG_SENSITIVITY, new EdgeCallback());
         mEdgeDragHelper.setMinVelocity(minFlingVelocity);
         mEdgeDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_ALL);
 
@@ -288,7 +288,7 @@ public class DragLayout extends RelativeLayout {
         super.onLayout(changed, l, t, r, b);
         for(DraggedDrawer drawerView : mDrawers.keySet()) {
             LayoutParams lp = (LayoutParams)drawerView.getLayoutParams();
-            if(lp.onScreen==0f) {
+            if(lp.onScreen==0f && !isInEditMode()) {
                 drawerView.setContentVisibility(INVISIBLE);
                 switch(drawerView.getDrawerType()) {
                     case DRAWER_LEFT:
@@ -491,7 +491,7 @@ public class DragLayout extends RelativeLayout {
      */
     void updateDrawerState(int activeState, DraggedDrawer activeDrawer) {
         if(activeState!=activeDrawer.mState) {
-            activeDrawer.mState=activeState;
+            activeDrawer.setDrawerState(activeState);
             if(activeDrawer.mListener!=null)
                 activeDrawer.mListener.onDrawerStateChanged(activeState);
         }
@@ -727,7 +727,7 @@ public class DragLayout extends RelativeLayout {
             }
             if(drawer!=null) {
                 Log.v(TAG, "Edge Capturing : " + drawer);
-                mEdgeDragHelper.captureChildView(drawer, pointerId);
+                mDrawers.get(drawer).helper.captureChildView(drawer, pointerId);
             }
         }
 
@@ -813,18 +813,18 @@ public class DragLayout extends RelativeLayout {
             int top=releasedChild.getTop();
             switch(dragView.getDrawerType()) {
                 case DRAWER_LEFT:
-                    left = xvel > 0 || xvel == 0 && offset > DRAG_SENSITIVITY ? 0 : dragView.getHandleSize()-childWidth;
+                    left = xvel > 0 || xvel == 0 && offset > .5f ? 0 : dragView.getHandleSize()-childWidth;
                     break;
                 case DRAWER_RIGHT:
                     final int width = getWidth();
-                    left = xvel < 0 || xvel == 0 && offset > DRAG_SENSITIVITY ? width-childWidth : width-dragView.getHandleSize();
+                    left = xvel < 0 || xvel == 0 && offset > .5f ? width-childWidth : width-dragView.getHandleSize();
                     break;
                 case DRAWER_TOP:
-                    top = yvel > 0 || yvel == 0 && offset > DRAG_SENSITIVITY ? 0 : dragView.getHandleSize()-childHeight;
+                    top = yvel > 0 || yvel == 0 && offset > .5f ? 0 : dragView.getHandleSize()-childHeight;
                     break;
                 default:
                     final int height = getHeight();
-                    top = yvel < 0 || yvel == 0 && offset > DRAG_SENSITIVITY ? height-childHeight : height-dragView.getHandleSize();
+                    top = yvel < 0 || yvel == 0 && offset > .5f ? height-childHeight : height-dragView.getHandleSize();
                     break;
 
             }
