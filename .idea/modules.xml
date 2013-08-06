@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/gen-external-apklibs/~apklib-com.draggabledrawers_library_1.0.0.iml" filepath="$PROJECT_DIR$/sample/gen-external-apklibs/~apklib-com.draggabledrawers_library_1.0.0.iml" />
     </modules>
   </component>
 </project>

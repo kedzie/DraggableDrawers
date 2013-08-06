@@ -17,7 +17,8 @@ import android.view.ViewDebug;
 import android.view.ViewGroup;
 
 /**
- * Draggable drawer
+ * Draggable drawer alternative implementation based on 
+ * {@link ViewGroup}
  */
 public class DraggedViewGroup extends ViewGroup {
     private static final String TAG = "DraggedViewGroup";
@@ -125,8 +126,8 @@ public class DraggedViewGroup extends ViewGroup {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
             mDrawerType = a.getInt(R.styleable.Drawer_type, DRAWER_LEFT);
-            mHandleId = a.getResourceId(R.styleable.Drawer_handleId, 0);
-            mContentId = a.getResourceId(R.styleable.Drawer_contentId, 0);
+            mHandleId = a.getResourceId(R.styleable.Drawer_handleId, -1);
+            mContentId = a.getResourceId(R.styleable.Drawer_contentId, -1);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
             mEdgeDraggable = a.getBoolean(R.styleable.Drawer_edgeDraggable, false);
         } finally {
@@ -149,43 +150,39 @@ public class DraggedViewGroup extends ViewGroup {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+    protected void onMeasure(int wSpec, int hSpec) {
+        int wSpecMode = MeasureSpec.getMode(wSpec);
+        int wSpecSize = MeasureSpec.getSize(wSpec);
+        int hSpecMode = MeasureSpec.getMode(hSpec);
+        int hSpecSize = MeasureSpec.getSize(hSpec);
 
         if(mHandle!=null) {
-            measureChild(mHandle, widthMeasureSpec, heightMeasureSpec);
+            measureChild(mHandle, wSpec, hSpec);
             mHandleWidth = mHandle.getMeasuredWidth();
             mHandleHeight = mHandle.getMeasuredHeight();
-            mHandleSize = (mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) ?
-                    mHandleWidth : mHandleHeight;
+            mHandleSize = (mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) ? mHandleWidth : mHandleHeight;
         }
 
         int dw = getPaddingLeft() + getPaddingRight();
         int dh = getPaddingTop() + getPaddingBottom();
 
         if(mContent!=null) {
-        switch(mDrawerType) {
-            case DRAWER_BOTTOM:
-            case DRAWER_TOP:
-                measureChild(mContent, widthMeasureSpec,
-                        MeasureSpec.makeMeasureSpec(heightSpecSize-mHandleHeight, heightSpecMode));
-                dw += Math.max(mHandleWidth, mContent.getMeasuredWidth());
-                dh += mHandleHeight+mContent.getMeasuredHeight();
-                break;
-            case DRAWER_LEFT:
-            case DRAWER_RIGHT:
-                measureChild(mContent, MeasureSpec.makeMeasureSpec(widthSpecSize-mHandleWidth, widthSpecMode),
-                        heightMeasureSpec);
-                dw += mHandleWidth+mContent.getMeasuredWidth();
-                dh += Math.max(mHandleHeight, mContent.getMeasuredHeight());
-                break;
+		    switch(mDrawerType) {
+		        case DRAWER_BOTTOM:
+		        case DRAWER_TOP:
+		            measureChild(mContent, wSpec, MeasureSpec.makeMeasureSpec(hSpecSize-mHandleHeight, hSpecMode));
+		            dw += Math.max(mHandleWidth, mContent.getMeasuredWidth());
+		            dh += mHandleHeight+mContent.getMeasuredHeight();
+		            break;
+		        case DRAWER_LEFT:
+		        case DRAWER_RIGHT:
+		            measureChild(mContent, MeasureSpec.makeMeasureSpec(wSpecSize-mHandleWidth, wSpecMode), hSpec);
+		            dw += mHandleWidth+mContent.getMeasuredWidth();
+		            dh += Math.max(mHandleHeight, mContent.getMeasuredHeight());
+		            break;
+		    }
         }
-        }
-
-        setMeasuredDimension(resolveSize(dw, widthMeasureSpec), resolveSize(dh, heightMeasureSpec));
+        setMeasuredDimension(resolveSize(dw, wSpec), resolveSize(dh, hSpec));
     }
 
     @Override
@@ -197,10 +194,9 @@ public class DraggedViewGroup extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         mInLayout=true;
-
         int handleTop=0, handleLeft=0;
         if(mHandle!=null) {
-            LayoutParams lp = (LayoutParams)mHandle.getLayoutParams();
+            final LayoutParams lp = (LayoutParams)mHandle.getLayoutParams();
             if(mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) { //horizontal drawers
                 switch(lp.gravity) {
                     case Gravity.TOP:
@@ -209,7 +205,7 @@ public class DraggedViewGroup extends ViewGroup {
                     case Gravity.BOTTOM:
                         handleTop = mContent.getMeasuredHeight()-mHandleHeight-lp.bottomMargin;
                         break;
-                    case Gravity.CENTER_HORIZONTAL:
+                    case Gravity.CENTER_VERTICAL:
                     case Gravity.CENTER:
                     default:
                         handleTop = (mContent.getMeasuredHeight()-mHandleHeight)/2;
@@ -223,7 +219,7 @@ public class DraggedViewGroup extends ViewGroup {
                     case Gravity.RIGHT:
                         handleLeft = mContent.getMeasuredWidth()-mHandleWidth-lp.rightMargin;
                         break;
-                    case Gravity.CENTER_VERTICAL:
+                    case Gravity.CENTER_HORIZONTAL:
                     case Gravity.CENTER:
                     default:
                         handleLeft = (mContent.getMeasuredWidth()-mHandleWidth)/2;
@@ -236,22 +232,26 @@ public class DraggedViewGroup extends ViewGroup {
                 case DRAWER_LEFT:
                     mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
                     if(mHandle!=null)
-                        mHandle.layout(mContent.getMeasuredWidth(), handleTop, mContent.getMeasuredWidth()+mHandleWidth, handleTop+mHandleHeight);
+                        mHandle.layout(mContent.getMeasuredWidth(), handleTop, 
+                        			mContent.getMeasuredWidth()+mHandleWidth, handleTop+mHandleHeight);
                     break;
                 case DRAWER_RIGHT:
                     if(mHandle!=null)
                         mHandle.layout(0, handleTop, mHandleWidth, handleTop+mHandleHeight);
-                    mContent.layout(mHandleWidth, 0, mHandleWidth+mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
+                    mContent.layout(mHandleWidth, 0, 
+                    	mHandleWidth+mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
                     break;
                 case DRAWER_TOP:
                     mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
                     if(mHandle!=null)
-                        mHandle.layout(handleLeft, mContent.getMeasuredHeight(), handleLeft+mHandleWidth,mContent.getMeasuredHeight()+mHandleHeight);
+                        mHandle.layout(handleLeft, mContent.getMeasuredHeight(), 
+                        		handleLeft+mHandleWidth, mContent.getMeasuredHeight()+mHandleHeight);
                     break;
                 case DRAWER_BOTTOM:
                     if(mHandle!=null)
                         mHandle.layout(handleLeft, 0, handleLeft+mHandleWidth, mHandleHeight);
-                    mContent.layout(0, mHandleHeight, mContent.getMeasuredWidth(), mHandleHeight+mContent.getMeasuredHeight());
+                    mContent.layout(0, mHandleHeight, mContent.getMeasuredWidth(), 
+                    					mHandleHeight+mContent.getMeasuredHeight());
                     break;
             }
         }
@@ -270,7 +270,7 @@ public class DraggedViewGroup extends ViewGroup {
      * Handle view size
      * @return size of handle (width for horizontal drawers, height for vertical drawers)
      */
-    public int getHandleSize() {
+    int getHandleSize() {
         return mHandleSize;
     }
 
@@ -305,6 +305,10 @@ public class DraggedViewGroup extends ViewGroup {
     public View getHandle() {
         return mHandle;
     }
+    
+    public void setHandle(View handle) {
+    	mHandle = handle;
+    }
 
     /**
      * Get the drawer content
@@ -312,6 +316,10 @@ public class DraggedViewGroup extends ViewGroup {
      */
     public View getContent() {
         return mContent;
+    }
+    
+    public void setContent(View content) {
+    	mContent=content;
     }
 
     /**
@@ -321,6 +329,10 @@ public class DraggedViewGroup extends ViewGroup {
     public int getDrawerType() {
         return mDrawerType;
     }
+    
+    public void setDrawerType(int type) {
+    	mDrawerType=type;
+    }
 
     /**
      * Get drawable to represent the drawer's shadow
@@ -328,6 +340,10 @@ public class DraggedViewGroup extends ViewGroup {
      */
     public Drawable getShadowDrawable() {
         return mShadowDrawable;
+    }
+    
+    public void setShadowDrawable(Drawable shadow) {
+    	mShadowDrawable=shadow;
     }
 
     /**
@@ -339,15 +355,20 @@ public class DraggedViewGroup extends ViewGroup {
         return mState;
     }
 
-    public void setDrawerState(int drawerState) {
+    void setDrawerState(int drawerState) {
         mState=drawerState;
     }
 
     public boolean isEdgeDraggable() {
         return mEdgeDraggable;
     }
+    
+    public void setEdgeDraggable(boolean edgeDraggable) {
+    	mEdgeDraggable=edgeDraggable;
+    }
 
     boolean isHandleHit(int x, int y) {
+    	if(mHandle==null) return false;
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
         Point point = mapPoint(this, new Point(x, y));

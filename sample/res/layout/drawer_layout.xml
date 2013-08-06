@@ -21,19 +21,46 @@
          android:textAppearance="?android:textAppearanceLarge"
          android:text="Contents"/>
 
+    </RelativeLayout>
+
+    <com.kedzie.drawer.DraggedDrawer
+            android:id="@+id/left_big"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            kedzie:handleId="@+id/left_big_handle"
+            kedzie:contentId="@+id/left_big_content"
+            kedzie:type="left"
+            kedzie:shadow="@drawable/shadow_grad_left">
+
+        <RelativeLayout
+                android:id="@id/left_big_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FF00FFFF">
+            <TextView android:text="LEFT"
+                      android:layout_centerInParent="true"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"/>
         </RelativeLayout>
 
+        <ImageView android:id="@id/left_big_handle"
+                   android:background="@drawable/handle"
+                   android:layout_gravity="top"
+                   android:layout_marginTop="12dp"
+                   android:layout_width="24dp"
+                   android:layout_height="80dp"/>
+    </com.kedzie.drawer.DraggedDrawer>
 
     <com.kedzie.drawer.DraggedDrawer
             android:id="@+id/left"
-            android:layout_width="200dp"
-            android:layout_height="400dp"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
             kedzie:handleId="@+id/left_handle"
             kedzie:contentId="@+id/left_content"
             kedzie:type="left"
-            kedzie:edgeDraggable="true"
             kedzie:shadow="@drawable/shadow_grad_left"
-            android:layout_marginTop="24dp">
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp">
 
         <RelativeLayout
                 android:id="@id/left_content"
@@ -48,8 +75,8 @@
 
         <ImageView android:id="@id/left_handle"
                    android:background="@drawable/handle"
-                   android:layout_gravity="top"
-                   android:layout_marginTop="14dp"
+                   android:layout_gravity="bottom"
+                   android:layout_marginBottom="14dp"
                    android:layout_width="24dp"
                    android:layout_height="80dp"/>
 
@@ -63,7 +90,6 @@
             kedzie:contentId="@+id/right_content"
             kedzie:type="right"
             kedzie:shadow="@drawable/shadow_grad_right"
-            kedzie:edgeDraggable="true"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="24dp">
@@ -95,7 +121,6 @@
             kedzie:handleId="@+id/bottom_handle"
             kedzie:contentId="@+id/bottom_content"
             kedzie:type="bottom"
-            kedzie:edgeDraggable="true"
             kedzie:shadow="@drawable/shadow_grad_bottom"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true">
@@ -126,7 +151,6 @@
             kedzie:handleId="@+id/top_handle"
             kedzie:contentId="@+id/top_content"
             kedzie:type="top"
-            kedzie:edgeDraggable="true"
             kedzie:shadow="@drawable/shadow_grad_top"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true">

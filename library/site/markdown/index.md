@@ -4,6 +4,18 @@ Android Draggable drawer component with handles in any direction.
 
 ![DraggableDrawers Screenshot](screenshot.png "DraggableDrawers in Action")
 
+##Maven
+
+The latest version is available on the Maven Central Repo
+
+```xml
+<dependency>
+	<artifactId>com.github.kedzie.draggabledrawers</artifactId>
+	<groupId>library</groupId>
+	<version>1.0.0</version>
+</dependency>
+```
+
 ##Usage
 
 Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content view, an optional handle, and choice of direction.  For example:

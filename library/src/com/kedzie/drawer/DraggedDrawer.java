@@ -117,7 +117,6 @@ public class DraggedDrawer extends LinearLayout {
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-
     /** Current state i.e. {@link DraggedDrawer#STATE_DRAGGING} {@link DraggedDrawer#STATE_IDLE} */
     int mState;
 
@@ -131,17 +130,11 @@ public class DraggedDrawer extends LinearLayout {
             mContentId = a.getResourceId(R.styleable.Drawer_contentId, 0);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
             mEdgeDraggable = a.getBoolean(R.styleable.Drawer_edgeDraggable, false);
+            if(mEdgeDraggable && mHandleId!=0)
+                throw  new IllegalStateException("Drawer cannot have handle and be edge draggable");
         } finally {
             a.recycle();
         }
-    }
-
-    /**
-     * Subscribe to drawer events
-     * @param listener  the listener
-     */
-    public void setDrawerListener(DrawerListener listener) {
-        mListener = listener;
     }
 
     @Override
@@ -149,7 +142,7 @@ public class DraggedDrawer extends LinearLayout {
         super.onFinishInflate();
         mHandle = findViewById(mHandleId);
         mContent = findViewById(mContentId);
-        //keep the original layout params
+        //keep the original layout params for reuse
         final LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
         removeAllViews();
 
@@ -196,13 +189,13 @@ public class DraggedDrawer extends LinearLayout {
     void setContentVisibility(int visibility) {
         if(mContent==null) return;
         if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
-            Log.d(TAG, "Showing content");
+            Log.v(TAG, "Showing drawer content");
             if(mDrawerType==DRAWER_LEFT)
                 offsetLeftAndRight(-mContent.getWidth());
             else if(mDrawerType==DRAWER_TOP)
                 offsetTopAndBottom(-mContent.getHeight());
         } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
-            Log.d(TAG, "Hiding content");
+            Log.v(TAG, "Hiding drawer content");
             if(mDrawerType==DRAWER_LEFT)
                 offsetLeftAndRight(mContent.getWidth());
             else if(mDrawerType==DRAWER_TOP)
@@ -231,7 +224,7 @@ public class DraggedDrawer extends LinearLayout {
      * Handle view size. Zero if no handle.
      * @return size of handle (width for horizontal drawers, height for vertical drawers)
      */
-    public int getHandleSize() {
+    int getHandleSize() {
         return mHandleSize;
     }
 
@@ -260,15 +253,24 @@ public class DraggedDrawer extends LinearLayout {
         return mState;
     }
 
-    public void setDrawerState(int drawerState) {
+    void setDrawerState(int drawerState) {
         mState=drawerState;
     }
 
     public boolean isEdgeDraggable() {
         return mEdgeDraggable;
     }
+    
+    /**
+     * Subscribe to drawer events
+     * @param listener  the listener
+     */
+    public void setDrawerListener(DrawerListener listener) {
+        mListener = listener;
+    }
 
-    public boolean isHandleHit(int x, int y) {
+    boolean isHandleHit(int x, int y) {
+    	if(mHandle==null) return false;
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
         Point point = mapPoint(this, new Point(x, y));
@@ -289,6 +291,5 @@ public class DraggedDrawer extends LinearLayout {
         mapped.offset(-view.getLeft(), -view.getTop());
         return mapped;
     }
-
 }
 
