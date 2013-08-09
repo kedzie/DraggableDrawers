@@ -25,8 +25,8 @@ import android.widget.LinearLayout;
  * @attr R.styleable#Drawer_edgeDraggable
  * @attr R.styleable#Drawer_shadow
  */
-public class DraggedDrawer extends LinearLayout {
-    public static final String TAG = "DraggedDrawer";
+public class DraggedDrawerLL extends LinearLayout {
+    public static final String TAG = "DraggedDrawerLL";
 
     /**
      * Listener for monitoring events about drawers.
@@ -53,7 +53,7 @@ public class DraggedDrawer extends LinearLayout {
 
         /**
          * Called when the drawer motion state changes. The new state will
-         * be one of {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_DRAGGING} or {@link DraggedDrawer#STATE_SETTLING}.
+         * be one of {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_DRAGGING} or {@link DraggedDrawerLL#STATE_SETTLING}.
          *
          * @param newState The new drawer motion state
          */
@@ -88,7 +88,7 @@ public class DraggedDrawer extends LinearLayout {
 
     /**
      * Drawer-specific event listener. For events relating to any drawer,
-     * see {@link DraggedDrawer#setDrawerListener(DrawerListener)}
+     * see {@link DraggedDrawerLL#setDrawerListener(DrawerListener)}
      */
     DrawerListener mListener;
 
@@ -117,17 +117,17 @@ public class DraggedDrawer extends LinearLayout {
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-    /** Current state i.e. {@link DraggedDrawer#STATE_DRAGGING} {@link DraggedDrawer#STATE_IDLE} */
+    /** Current state i.e. {@link DraggedDrawerLL#STATE_DRAGGING} {@link DraggedDrawerLL#STATE_IDLE} */
     int mState;
 
 
-    public DraggedDrawer(Context context, AttributeSet attrs) {
+    public DraggedDrawerLL(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
             mDrawerType = a.getInt(R.styleable.Drawer_type, DRAWER_LEFT);
-            mHandleId = a.getResourceId(R.styleable.Drawer_handleId, 0);
-            mContentId = a.getResourceId(R.styleable.Drawer_contentId, 0);
+            mHandleId = a.getResourceId(R.styleable.Drawer_handleId, -1);
+            mContentId = a.getResourceId(R.styleable.Drawer_contentId, -1);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
             mEdgeDraggable = a.getBoolean(R.styleable.Drawer_edgeDraggable, false);
             if(mEdgeDraggable && mHandleId!=0)
@@ -188,18 +188,18 @@ public class DraggedDrawer extends LinearLayout {
      */
     void setContentVisibility(int visibility) {
         if(mContent==null) return;
-        if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
-            Log.v(TAG, "Showing drawer content");
-            if(mDrawerType==DRAWER_LEFT)
-                offsetLeftAndRight(-mContent.getWidth());
-            else if(mDrawerType==DRAWER_TOP)
-                offsetTopAndBottom(-mContent.getHeight());
-        } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
+        if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) {
             Log.v(TAG, "Hiding drawer content");
             if(mDrawerType==DRAWER_LEFT)
                 offsetLeftAndRight(mContent.getWidth());
             else if(mDrawerType==DRAWER_TOP)
                 offsetTopAndBottom(mContent.getHeight());
+        } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
+            Log.v(TAG, "Showing drawer content");
+            if(mDrawerType==DRAWER_LEFT)
+                offsetLeftAndRight(-mContent.getWidth());
+            else if(mDrawerType==DRAWER_TOP)
+                offsetTopAndBottom(-mContent.getHeight());
         }
         mContent.setVisibility(visibility);
     }
@@ -246,7 +246,7 @@ public class DraggedDrawer extends LinearLayout {
 
     /**
      * Drawer state.
-     * {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_SETTLING} or {@link DraggedDrawer#STATE_DRAGGING}
+     * {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_SETTLING} or {@link DraggedDrawerLL#STATE_DRAGGING}
      * @return The state of the drawer
      */
     public int getDrawerState() {
