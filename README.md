@@ -33,7 +33,7 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
         android:layout_height="match_parent">
 
 
-    <com.kedzie.drawer.DraggedDrawer
+    <com.kedzie.drawer.DraggedDrawerLL
             android:id="@+id/left"
             android:layout_width="400dp"
             android:layout_height="400dp"
@@ -61,9 +61,9 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"/>
 
-    </com.kedzie.drawer.DraggedDrawer>
+    </com.kedzie.drawer.DraggedDrawerLL>
 
-    <com.kedzie.drawer.DraggedDrawer
+    <com.kedzie.drawer.DraggedDrawerLL
             android:id="@+id/bottom"
             android:layout_width="400dp"
             android:layout_height="250dp"
@@ -92,9 +92,9 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
                    android:layout_height="24dp"
                    android:layout_gravity="center"/>
 
-    </com.kedzie.drawer.DraggedDrawer>
+    </com.kedzie.drawer.DraggedDrawerLL>
 
-    <com.kedzie.drawer.DraggedDrawer
+    <com.kedzie.drawer.DraggedDrawerLL
             android:id="@+id/top"
             android:layout_width="300dp"
             android:layout_height="300dp"
@@ -122,7 +122,7 @@ Drawers must be enclosed in a DragLayout.  Each drawer is defined with a content
                    android:layout_width="200dp"
                    android:layout_height="30dp"/>
 
-    </com.kedzie.drawer.DraggedDrawer>
+    </com.kedzie.drawer.DraggedDrawerLL>
 
 </com.kedzie.drawer.DragLayout>
 

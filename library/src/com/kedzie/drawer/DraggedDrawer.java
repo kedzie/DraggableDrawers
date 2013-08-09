@@ -2,26 +2,29 @@ package com.kedzie.drawer;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 
 /**
- * Draggable drawer alternative implementation based on 
- * {@link ViewGroup}
+ * Draggable drawer with content and visible handle for all orientations.  For
+ * dragging capabilities must be placed inside a {@link DragLayout}.
+ *
+ * @attr R.styleable#Drawer_type
+ * @attr R.styleable#Drawer_handleId
+ * @attr R.styleable#Drawer_contentId
+ * @attr R.styleable#Drawer_edgeDraggable
+ * @attr R.styleable#Drawer_shadow
  */
-public class DraggedViewGroup extends ViewGroup {
-    private static final String TAG = "DraggedViewGroup";
+public class DraggedDrawer extends ViewGroup {
+    private static final String TAG = "DraggedDrawer";
 
     /**
      * Listener for monitoring events about drawers.
@@ -92,6 +95,9 @@ public class DraggedViewGroup extends ViewGroup {
 
     private int mHandleWidth;
     private int mHandleHeight;
+    private int mContentWidth;
+    private int mContentHeight;
+    private boolean mInLayout;
 
     /** Drawer orientation */
     @ViewDebug.ExportedProperty(category = "layout")
@@ -115,13 +121,15 @@ public class DraggedViewGroup extends ViewGroup {
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-
-    /** Current state i.e. {@link DraggedDrawer#STATE_DRAGGING} {@link DraggedDrawer#STATE_IDLE} */
+    /** Current state i.e. {@link DraggedDrawerLL#STATE_DRAGGING} {@link DraggedDrawerLL#STATE_IDLE} */
     int mState;
 
-    private boolean mInLayout;
 
-    public DraggedViewGroup(Context context, AttributeSet attrs) {
+    public DraggedDrawer(Context context) {
+        super(context);
+    }
+
+    public DraggedDrawer(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Drawer, 0, 0);
         try {
@@ -130,16 +138,11 @@ public class DraggedViewGroup extends ViewGroup {
             mContentId = a.getResourceId(R.styleable.Drawer_contentId, -1);
             mShadowDrawable = a.getDrawable(R.styleable.Drawer_shadow);
             mEdgeDraggable = a.getBoolean(R.styleable.Drawer_edgeDraggable, false);
+            if(mEdgeDraggable && mHandleId!=0)
+                throw  new IllegalStateException("Drawer cannot have handle and be edge draggable");
         } finally {
             a.recycle();
         }
-    }
-
-    /**
-     * @param context
-     */
-    public DraggedViewGroup(Context context) {
-        super(context);
     }
 
     @Override
@@ -163,22 +166,30 @@ public class DraggedViewGroup extends ViewGroup {
             mHandleSize = (mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) ? mHandleWidth : mHandleHeight;
         }
 
-        int dw = getPaddingLeft() + getPaddingRight();
-        int dh = getPaddingTop() + getPaddingBottom();
+        int dw = mHandleWidth;
+        int dh = mHandleHeight;
 
         if(mContent!=null) {
 		    switch(mDrawerType) {
 		        case DRAWER_BOTTOM:
 		        case DRAWER_TOP:
-		            measureChild(mContent, wSpec, MeasureSpec.makeMeasureSpec(hSpecSize-mHandleHeight, hSpecMode));
-		            dw += Math.max(mHandleWidth, mContent.getMeasuredWidth());
-		            dh += mHandleHeight+mContent.getMeasuredHeight();
+                    if(mContent.getVisibility()!=GONE) {
+		                measureChild(mContent, wSpec, MeasureSpec.makeMeasureSpec(hSpecSize-mHandleHeight, hSpecMode));
+                        mContentWidth = mContent.getMeasuredWidth();
+                        mContentHeight = mContent.getMeasuredHeight();
+                    }
+		            dw += Math.max(mHandleWidth, mContentWidth);
+		            dh += mContentHeight;
 		            break;
 		        case DRAWER_LEFT:
 		        case DRAWER_RIGHT:
-		            measureChild(mContent, MeasureSpec.makeMeasureSpec(wSpecSize-mHandleWidth, wSpecMode), hSpec);
-		            dw += mHandleWidth+mContent.getMeasuredWidth();
-		            dh += Math.max(mHandleHeight, mContent.getMeasuredHeight());
+                    if(mContent.getVisibility()!=GONE) {
+		                measureChild(mContent, MeasureSpec.makeMeasureSpec(wSpecSize-mHandleWidth, wSpecMode), hSpec);
+                        mContentWidth = mContent.getMeasuredWidth();
+                        mContentHeight = mContent.getMeasuredHeight();
+                    }
+		            dw += mContentWidth;
+		            dh += Math.max(mHandleHeight, mContentHeight);
 		            break;
 		    }
         }
@@ -195,6 +206,7 @@ public class DraggedViewGroup extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         mInLayout=true;
         int handleTop=0, handleLeft=0;
+
         if(mHandle!=null) {
             final LayoutParams lp = (LayoutParams)mHandle.getLayoutParams();
             if(mDrawerType==DRAWER_LEFT || mDrawerType==DRAWER_RIGHT) { //horizontal drawers
@@ -203,12 +215,12 @@ public class DraggedViewGroup extends ViewGroup {
                         handleTop = lp.topMargin;
                         break;
                     case Gravity.BOTTOM:
-                        handleTop = mContent.getMeasuredHeight()-mHandleHeight-lp.bottomMargin;
+                        handleTop = mContentHeight-mHandleHeight-lp.bottomMargin;
                         break;
                     case Gravity.CENTER_VERTICAL:
                     case Gravity.CENTER:
                     default:
-                        handleTop = (mContent.getMeasuredHeight()-mHandleHeight)/2;
+                        handleTop = (mContentHeight-mHandleHeight)/2;
                         break;
                 }
             } else {    //vertical drawers
@@ -217,44 +229,42 @@ public class DraggedViewGroup extends ViewGroup {
                         handleLeft = lp.leftMargin;
                         break;
                     case Gravity.RIGHT:
-                        handleLeft = mContent.getMeasuredWidth()-mHandleWidth-lp.rightMargin;
+                        handleLeft = mContentWidth-mHandleWidth-lp.rightMargin;
                         break;
                     case Gravity.CENTER_HORIZONTAL:
                     case Gravity.CENTER:
                     default:
-                        handleLeft = (mContent.getMeasuredWidth()-mHandleWidth)/2;
+                        handleLeft = (mContentWidth-mHandleWidth)/2;
                         break;
                 }
             }
         }
-        if(mContent!=null) {
             switch(mDrawerType) {
                 case DRAWER_LEFT:
-                    mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
+                    if(mContent!=null && mContent.getVisibility()!=GONE)
+                        mContent.layout(0, 0, mContentWidth, mContentHeight);
                     if(mHandle!=null)
-                        mHandle.layout(mContent.getMeasuredWidth(), handleTop, 
-                        			mContent.getMeasuredWidth()+mHandleWidth, handleTop+mHandleHeight);
+                        mHandle.layout(mContentWidth, handleTop, mContentWidth+mHandleWidth, handleTop+mHandleHeight);
                     break;
                 case DRAWER_RIGHT:
                     if(mHandle!=null)
                         mHandle.layout(0, handleTop, mHandleWidth, handleTop+mHandleHeight);
-                    mContent.layout(mHandleWidth, 0, 
-                    	mHandleWidth+mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
+                    if(mContent!=null && mContent.getVisibility()!=GONE)
+                        mContent.layout(mHandleWidth, 0, mHandleWidth+mContentWidth, mContentHeight);
                     break;
                 case DRAWER_TOP:
-                    mContent.layout(0, 0, mContent.getMeasuredWidth(), mContent.getMeasuredHeight());
+                    if(mContent!=null && mContent.getVisibility()!=GONE)
+                        mContent.layout(0, 0, mContentWidth, mContentHeight);
                     if(mHandle!=null)
-                        mHandle.layout(handleLeft, mContent.getMeasuredHeight(), 
-                        		handleLeft+mHandleWidth, mContent.getMeasuredHeight()+mHandleHeight);
+                        mHandle.layout(handleLeft, mContentHeight, handleLeft+mHandleWidth, mContentHeight+mHandleHeight);
                     break;
                 case DRAWER_BOTTOM:
                     if(mHandle!=null)
                         mHandle.layout(handleLeft, 0, handleLeft+mHandleWidth, mHandleHeight);
-                    mContent.layout(0, mHandleHeight, mContent.getMeasuredWidth(), 
-                    					mHandleHeight+mContent.getMeasuredHeight());
+                    if(mContent!=null && mContent.getVisibility()!=GONE)
+                        mContent.layout(0, mHandleHeight, mContentWidth, mHandleHeight+mContentHeight);
                     break;
             }
-        }
         mInLayout=false;
     }
 
@@ -282,19 +292,6 @@ public class DraggedViewGroup extends ViewGroup {
      * @param visibility    Desired visibilty. i.e. {@link View#VISIBLE} {@link View#INVISIBLE} or {@link View#GONE}
      */
     void setContentVisibility(int visibility) {
-        if(visibility==View.GONE && mContent.getVisibility()!=View.GONE) { //adding to layout
-            Log.d(TAG, "Showing content");
-            if(mDrawerType==DRAWER_LEFT)
-                offsetLeftAndRight(-mContent.getWidth());
-            else if(mDrawerType==DRAWER_TOP)
-                offsetTopAndBottom(-mContent.getHeight());
-        } else if(visibility!=View.GONE && mContent.getVisibility()==View.GONE) {
-            Log.d(TAG, "Hiding content");
-            if(mDrawerType==DRAWER_LEFT)
-                offsetLeftAndRight(mContent.getWidth());
-            else if(mDrawerType==DRAWER_TOP)
-                offsetTopAndBottom(mContent.getHeight());
-        }
         mContent.setVisibility(visibility);
     }
 
@@ -348,7 +345,7 @@ public class DraggedViewGroup extends ViewGroup {
 
     /**
      * Drawer state.
-     * {@link DraggedDrawer#STATE_IDLE}, {@link DraggedDrawer#STATE_SETTLING} or {@link DraggedDrawer#STATE_DRAGGING}
+     * {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_SETTLING} or {@link DraggedDrawerLL#STATE_DRAGGING}
      * @return The state of the drawer
      */
     public int getDrawerState() {

@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Toast;
 
 import com.kedzie.drawer.DragLayout;
 import com.kedzie.drawer.DraggedDrawer;
@@ -66,7 +63,7 @@ public class DraggerActivity extends Activity {
         switch(item.getItemId()) {
             case R.id.action_expand:
                 Log.d(TAG, "Expanding");
-                mLayout.openDrawer(leftDrawer);
+                mLayout.openDrawer(leftDrawer, false);
                 return true;
             case R.id.action_collapse:
                 Log.d(TAG, "Collapsing");
