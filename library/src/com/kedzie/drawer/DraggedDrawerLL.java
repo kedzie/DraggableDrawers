@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
  * @attr R.styleable#Drawer_shadow
  */
 public class DraggedDrawerLL extends LinearLayout {
-    public static final String TAG = "DraggedDrawerLL";
+    public static final String TAG = "DraggedDrawer";
 
     /**
      * Listener for monitoring events about drawers.
@@ -47,13 +47,18 @@ public class DraggedDrawerLL extends LinearLayout {
         public void onDrawerOpened();
 
         /**
+         * Called when drawer is starting to open.
+         */
+        public void onDrawerOpening();
+
+        /**
          * Called when a drawer has settled in a completely closed state.
          */
         public void onDrawerClosed();
 
         /**
          * Called when the drawer motion state changes. The new state will
-         * be one of {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_DRAGGING} or {@link DraggedDrawerLL#STATE_SETTLING}.
+         * be one of {@link #STATE_IDLE}, {@link #STATE_DRAGGING} or {@link #STATE_SETTLING}.
          *
          * @param newState The new drawer motion state
          */
@@ -66,6 +71,7 @@ public class DraggedDrawerLL extends LinearLayout {
     public static class SimpleDrawerListener implements DrawerListener {
         @Override public void onDrawerSlide(float slideOffset) {}
         @Override public void onDrawerOpened() {}
+        @Override public void onDrawerOpening() {}
         @Override public void onDrawerClosed() {}
         @Override public void onDrawerStateChanged(int newState) {}
     }
@@ -88,7 +94,7 @@ public class DraggedDrawerLL extends LinearLayout {
 
     /**
      * Drawer-specific event listener. For events relating to any drawer,
-     * see {@link DraggedDrawerLL#setDrawerListener(DrawerListener)}
+     * see {@link #setDrawerListener(DrawerListener)}
      */
     DrawerListener mListener;
 
@@ -117,9 +123,11 @@ public class DraggedDrawerLL extends LinearLayout {
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-    /** Current state i.e. {@link DraggedDrawerLL#STATE_DRAGGING} {@link DraggedDrawerLL#STATE_IDLE} */
+    /** Current state i.e. {@link #STATE_DRAGGING} {@link #STATE_IDLE} */
     int mState;
 
+    /** Drawer is Settling to this destination offset */
+    float destinationOffset;
 
     public DraggedDrawerLL(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -142,6 +150,13 @@ public class DraggedDrawerLL extends LinearLayout {
         super.onFinishInflate();
         mHandle = findViewById(mHandleId);
         mContent = findViewById(mContentId);
+        init();
+    }
+
+    /**
+     * Initialize layout
+     */
+    private void init() {
         //keep the original layout params for reuse
         final LayoutParams handleParams = mHandle!=null ? (LayoutParams) mHandle.getLayoutParams() : null;
         removeAllViews();
@@ -149,23 +164,23 @@ public class DraggedDrawerLL extends LinearLayout {
         switch(mDrawerType) {
             case DRAWER_LEFT:
                 setOrientation(HORIZONTAL);
-                addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                if(mContent!=null) addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
                 if(mHandle!=null) addView(mHandle, handleParams);
                 break;
             case DRAWER_RIGHT:
                 setOrientation(HORIZONTAL);
                 if(mHandle!=null) addView(mHandle, handleParams);
-                addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
+                if(mContent!=null) addView(mContent, new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
                 break;
             case DRAWER_TOP:
                 setOrientation(VERTICAL);
-                addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+                if(mContent!=null) addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
                 if(mHandle!=null) addView(mHandle, handleParams);
                 break;
             case DRAWER_BOTTOM:
                 setOrientation(VERTICAL);
                 if(mHandle!=null) addView(mHandle, handleParams);
-                addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+                if(mContent!=null) addView(mContent, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
                 break;
         }
     }
@@ -212,6 +227,11 @@ public class DraggedDrawerLL extends LinearLayout {
         return mHandle;
     }
 
+    public void setHandle(View handle) {
+        mHandle = handle;
+        init();
+    }
+
     /**
      * Get the drawer content
      * @return  drawer content view
@@ -220,12 +240,9 @@ public class DraggedDrawerLL extends LinearLayout {
         return mContent;
     }
 
-    /**
-     * Handle view size. Zero if no handle.
-     * @return size of handle (width for horizontal drawers, height for vertical drawers)
-     */
-    int getHandleSize() {
-        return mHandleSize;
+    public void setContent(View content) {
+        mContent=content;
+        init();
     }
 
     /**
@@ -236,6 +253,10 @@ public class DraggedDrawerLL extends LinearLayout {
         return mDrawerType;
     }
 
+    public void setDrawerType(int type) {
+        mDrawerType=type;
+    }
+
     /**
      * Get drawable to represent the drawer's shadow
      * @return
@@ -244,9 +265,13 @@ public class DraggedDrawerLL extends LinearLayout {
         return mShadowDrawable;
     }
 
+    public void setShadowDrawable(Drawable shadow) {
+        mShadowDrawable=shadow;
+    }
+
     /**
      * Drawer state.
-     * {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_SETTLING} or {@link DraggedDrawerLL#STATE_DRAGGING}
+     * {@link #STATE_IDLE}, {@link #STATE_SETTLING} or {@link #STATE_DRAGGING}
      * @return The state of the drawer
      */
     public int getDrawerState() {
@@ -260,7 +285,11 @@ public class DraggedDrawerLL extends LinearLayout {
     public boolean isEdgeDraggable() {
         return mEdgeDraggable;
     }
-    
+
+    public void setEdgeDraggable(boolean edgeDraggable) {
+        mEdgeDraggable=edgeDraggable;
+    }
+
     /**
      * Subscribe to drawer events
      * @param listener  the listener
@@ -270,7 +299,7 @@ public class DraggedDrawerLL extends LinearLayout {
     }
 
     boolean isHandleHit(int x, int y) {
-    	if(mHandle==null) return false;
+        if(mHandle==null) return false;
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
         Point point = mapPoint(this, new Point(x, y));
@@ -292,4 +321,3 @@ public class DraggedDrawerLL extends LinearLayout {
         return mapped;
     }
 }
-

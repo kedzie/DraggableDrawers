@@ -63,11 +63,11 @@ public class DraggerActivity extends Activity {
         switch(item.getItemId()) {
             case R.id.action_expand:
                 Log.d(TAG, "Expanding");
-                mLayout.openDrawer(leftDrawer, false);
+                mLayout.openDrawer(leftDrawer, true);
                 return true;
             case R.id.action_collapse:
                 Log.d(TAG, "Collapsing");
-                mLayout.closeAllDrawers();
+                mLayout.closeAllDrawers(true);
                 return true;
         }
         return false;

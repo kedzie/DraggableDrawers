@@ -22,6 +22,7 @@ import android.view.ViewGroup;
  * @attr R.styleable#Drawer_contentId
  * @attr R.styleable#Drawer_edgeDraggable
  * @attr R.styleable#Drawer_shadow
+ * @see DragLayout
  */
 public class DraggedDrawer extends ViewGroup {
     private static final String TAG = "DraggedDrawer";
@@ -45,13 +46,18 @@ public class DraggedDrawer extends ViewGroup {
         public void onDrawerOpened();
 
         /**
+         * Called when drawer is starting to open.
+         */
+        public void onDrawerOpening();
+
+        /**
          * Called when a drawer has settled in a completely closed state.
          */
         public void onDrawerClosed();
 
         /**
          * Called when the drawer motion state changes. The new state will
-         * be one of {@link DraggedViewGroup#STATE_IDLE}, {@link DraggedViewGroup#STATE_DRAGGING} or {@link DraggedViewGroup#STATE_SETTLING}.
+         * be one of {@link #STATE_IDLE}, {@link #STATE_DRAGGING} or {@link #STATE_SETTLING}.
          *
          * @param newState The new drawer motion state
          */
@@ -64,6 +70,7 @@ public class DraggedDrawer extends ViewGroup {
     public static class SimpleDrawerListener implements DrawerListener {
         @Override public void onDrawerSlide(float slideOffset) {}
         @Override public void onDrawerOpened() {}
+        @Override public void onDrawerOpening() {}
         @Override public void onDrawerClosed() {}
         @Override public void onDrawerStateChanged(int newState) {}
     }
@@ -86,7 +93,7 @@ public class DraggedDrawer extends ViewGroup {
 
     /**
      * Drawer-specific event listener. For events relating to any drawer,
-     * see {@link DraggedViewGroup#setDrawerListener(DrawerListener)}
+     * see {@link #setDrawerListener(DrawerListener)}
      */
     DrawerListener mListener;
 
@@ -121,8 +128,10 @@ public class DraggedDrawer extends ViewGroup {
     private View mContent;
     /** Drawable used for drop-shadow when drawer is visible */
     private Drawable mShadowDrawable;
-    /** Current state i.e. {@link DraggedDrawerLL#STATE_DRAGGING} {@link DraggedDrawerLL#STATE_IDLE} */
+    /** Current state i.e. {@link #STATE_DRAGGING} {@link #STATE_IDLE} */
     int mState;
+    /** Drawer is Settling to this destination offset */
+    float destinationOffset;
 
 
     public DraggedDrawer(Context context) {
@@ -170,28 +179,28 @@ public class DraggedDrawer extends ViewGroup {
         int dh = mHandleHeight;
 
         if(mContent!=null) {
-		    switch(mDrawerType) {
-		        case DRAWER_BOTTOM:
-		        case DRAWER_TOP:
+            switch(mDrawerType) {
+                case DRAWER_BOTTOM:
+                case DRAWER_TOP:
                     if(mContent.getVisibility()!=GONE) {
-		                measureChild(mContent, wSpec, MeasureSpec.makeMeasureSpec(hSpecSize-mHandleHeight, hSpecMode));
+                        measureChild(mContent, wSpec, MeasureSpec.makeMeasureSpec(hSpecSize-mHandleHeight, hSpecMode));
                         mContentWidth = mContent.getMeasuredWidth();
                         mContentHeight = mContent.getMeasuredHeight();
                     }
-		            dw += Math.max(mHandleWidth, mContentWidth);
-		            dh += mContentHeight;
-		            break;
-		        case DRAWER_LEFT:
-		        case DRAWER_RIGHT:
+                    dw += Math.max(mHandleWidth, mContentWidth);
+                    dh += mContentHeight;
+                    break;
+                case DRAWER_LEFT:
+                case DRAWER_RIGHT:
                     if(mContent.getVisibility()!=GONE) {
-		                measureChild(mContent, MeasureSpec.makeMeasureSpec(wSpecSize-mHandleWidth, wSpecMode), hSpec);
+                        measureChild(mContent, MeasureSpec.makeMeasureSpec(wSpecSize-mHandleWidth, wSpecMode), hSpec);
                         mContentWidth = mContent.getMeasuredWidth();
                         mContentHeight = mContent.getMeasuredHeight();
                     }
-		            dw += mContentWidth;
-		            dh += Math.max(mHandleHeight, mContentHeight);
-		            break;
-		    }
+                    dw += mContentWidth;
+                    dh += Math.max(mHandleHeight, mContentHeight);
+                    break;
+            }
         }
         setMeasuredDimension(resolveSize(dw, wSpec), resolveSize(dh, hSpec));
     }
@@ -239,32 +248,32 @@ public class DraggedDrawer extends ViewGroup {
                 }
             }
         }
-            switch(mDrawerType) {
-                case DRAWER_LEFT:
-                    if(mContent!=null && mContent.getVisibility()!=GONE)
-                        mContent.layout(0, 0, mContentWidth, mContentHeight);
-                    if(mHandle!=null)
-                        mHandle.layout(mContentWidth, handleTop, mContentWidth+mHandleWidth, handleTop+mHandleHeight);
-                    break;
-                case DRAWER_RIGHT:
-                    if(mHandle!=null)
-                        mHandle.layout(0, handleTop, mHandleWidth, handleTop+mHandleHeight);
-                    if(mContent!=null && mContent.getVisibility()!=GONE)
-                        mContent.layout(mHandleWidth, 0, mHandleWidth+mContentWidth, mContentHeight);
-                    break;
-                case DRAWER_TOP:
-                    if(mContent!=null && mContent.getVisibility()!=GONE)
-                        mContent.layout(0, 0, mContentWidth, mContentHeight);
-                    if(mHandle!=null)
-                        mHandle.layout(handleLeft, mContentHeight, handleLeft+mHandleWidth, mContentHeight+mHandleHeight);
-                    break;
-                case DRAWER_BOTTOM:
-                    if(mHandle!=null)
-                        mHandle.layout(handleLeft, 0, handleLeft+mHandleWidth, mHandleHeight);
-                    if(mContent!=null && mContent.getVisibility()!=GONE)
-                        mContent.layout(0, mHandleHeight, mContentWidth, mHandleHeight+mContentHeight);
-                    break;
-            }
+        switch(mDrawerType) {
+            case DRAWER_LEFT:
+                if(mContent!=null && mContent.getVisibility()!=GONE)
+                    mContent.layout(0, 0, mContentWidth, mContentHeight);
+                if(mHandle!=null)
+                    mHandle.layout(mContentWidth, handleTop, mContentWidth+mHandleWidth, handleTop+mHandleHeight);
+                break;
+            case DRAWER_RIGHT:
+                if(mHandle!=null)
+                    mHandle.layout(0, handleTop, mHandleWidth, handleTop+mHandleHeight);
+                if(mContent!=null && mContent.getVisibility()!=GONE)
+                    mContent.layout(mHandleWidth, 0, mHandleWidth+mContentWidth, mContentHeight);
+                break;
+            case DRAWER_TOP:
+                if(mContent!=null && mContent.getVisibility()!=GONE)
+                    mContent.layout(0, 0, mContentWidth, mContentHeight);
+                if(mHandle!=null)
+                    mHandle.layout(handleLeft, mContentHeight, handleLeft+mHandleWidth, mContentHeight+mHandleHeight);
+                break;
+            case DRAWER_BOTTOM:
+                if(mHandle!=null)
+                    mHandle.layout(handleLeft, 0, handleLeft+mHandleWidth, mHandleHeight);
+                if(mContent!=null && mContent.getVisibility()!=GONE)
+                    mContent.layout(0, mHandleHeight, mContentWidth, mHandleHeight+mContentHeight);
+                break;
+        }
         mInLayout=false;
     }
 
@@ -302,9 +311,9 @@ public class DraggedDrawer extends ViewGroup {
     public View getHandle() {
         return mHandle;
     }
-    
+
     public void setHandle(View handle) {
-    	mHandle = handle;
+        mHandle = handle;
     }
 
     /**
@@ -314,9 +323,9 @@ public class DraggedDrawer extends ViewGroup {
     public View getContent() {
         return mContent;
     }
-    
+
     public void setContent(View content) {
-    	mContent=content;
+        mContent=content;
     }
 
     /**
@@ -326,9 +335,9 @@ public class DraggedDrawer extends ViewGroup {
     public int getDrawerType() {
         return mDrawerType;
     }
-    
+
     public void setDrawerType(int type) {
-    	mDrawerType=type;
+        mDrawerType=type;
     }
 
     /**
@@ -338,14 +347,14 @@ public class DraggedDrawer extends ViewGroup {
     public Drawable getShadowDrawable() {
         return mShadowDrawable;
     }
-    
+
     public void setShadowDrawable(Drawable shadow) {
-    	mShadowDrawable=shadow;
+        mShadowDrawable=shadow;
     }
 
     /**
      * Drawer state.
-     * {@link DraggedDrawerLL#STATE_IDLE}, {@link DraggedDrawerLL#STATE_SETTLING} or {@link DraggedDrawerLL#STATE_DRAGGING}
+     * {@link #STATE_IDLE}, {@link #STATE_SETTLING} or {@link #STATE_DRAGGING}
      * @return The state of the drawer
      */
     public int getDrawerState() {
@@ -359,13 +368,13 @@ public class DraggedDrawer extends ViewGroup {
     public boolean isEdgeDraggable() {
         return mEdgeDraggable;
     }
-    
+
     public void setEdgeDraggable(boolean edgeDraggable) {
-    	mEdgeDraggable=edgeDraggable;
+        mEdgeDraggable=edgeDraggable;
     }
 
     boolean isHandleHit(int x, int y) {
-    	if(mHandle==null) return false;
+        if(mHandle==null) return false;
         Rect handleHit = new Rect();
         mHandle.getHitRect(handleHit);
         Point point = mapPoint(this, new Point(x, y));
