@@ -10,37 +10,37 @@
 	</parent>
 
 	<artifactId>sample</artifactId>
-  <version>1.0.0</version>
 	<packaging>apk</packaging>
-<url>http://kedzie.github.io/DraggableDrawers</url>
+
+	<url>http://kedzie.github.io/DraggableDrawers</url>
 	<name>Draggable Drawer Sample</name>
 
 	<scm>
 		<url>https://github.com/kedzie/DraggableDrawers</url>
 		<connection>scm:git:git://github.com/kedzie/DraggableDrawers.git</connection>
 		<developerConnection>scm:git:https://github.com/kedzie/DraggableDrawers.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
+    	<tag>HEAD</tag>
+  	</scm>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.draggabledrawers</groupId>
+			<groupId>com.github.kedzie.draggabledrawers</groupId>
 			<artifactId>library</artifactId>
 			<version>${project.version}</version>
-			<type>apklib</type>
+			<type>aar</type>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>android-maven-plugin</artifactId>
+				<groupId>com.simpligility.maven.plugins</groupId>
+            	<artifactId>android-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

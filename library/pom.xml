@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>library</artifactId>
-	<packaging>apklib</packaging>
+	<packaging>aar</packaging>
 
 	<name>DraggableDrawers for Android</name>
 	<description>Multidirectional Sliding Drawer widget for Android</description>
@@ -34,33 +34,27 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
-		</dependency>
-        <dependency>
-            <groupId>com.google.android</groupId>
-            <artifactId>annotations</artifactId>
-            <version>4.1.1.4</version>
-        </dependency>
+		</dependency>   
 		<dependency>
-			<groupId>com.android.support</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>13.0.0</version>
+			<groupId>android.support</groupId>
+			<artifactId>compatibility-v4</artifactId>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>android-maven-plugin</artifactId>
+				<groupId>com.simpligility.maven.plugins</groupId>
+            	<artifactId>android-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
 				<configuration>
-					<siteDirectory>${basedir}/site</siteDirectory>
+					<siteDirectory>${basedir}/src/main/site</siteDirectory>
 				</configuration>
 				<dependencies>
 		            <dependency>
