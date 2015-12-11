@@ -2,3 +2,6 @@ bin
 gen
 out
 gen-external-apklibs
+**/build
+**/target
+.gradle

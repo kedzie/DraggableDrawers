@@ -71,20 +71,18 @@
 			<dependency>
 				<groupId>android</groupId>
 				<artifactId>android</artifactId>
-				<version>4.4_r1</version>
+				<version>6.0_r1</version>
 			</dependency>
 			<dependency>
-				<groupId>android.support</groupId>
-				<artifactId>compatibility-v4</artifactId>
-				<version>19</version>
+				<groupId>com.android.support</groupId>
+				<artifactId>support-v4</artifactId>
+				<version>23.1.0</version>
+				<type>aar</type>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
-		<sourceDirectory>${basedir}/src</sourceDirectory>
-		<directory>${basedir}/bin</directory>
-		<outputDirectory>${basedir}/bin/classes</outputDirectory>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
@@ -114,10 +112,10 @@
 				<plugin>
 					<groupId>com.simpligility.maven.plugins</groupId>
             		<artifactId>android-maven-plugin</artifactId>
-					<version>4.2.1</version>
+					<version>4.3.0</version>
 					<extensions>true</extensions>
 					<configuration>
-						<sdk><platform>17</platform></sdk>
+						<sdk><platform>21</platform></sdk>
 						<manifestVersionName />
 						<manifestVersionCodeUpdateFromVersion>true</manifestVersionCodeUpdateFromVersion>
 						<attachSources>true</attachSources>
@@ -155,13 +153,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<repositories>
-        <repository>
-            <id>third.party.closed.source.repo</id>
-            <url>file://${basedir}/maven_repo_3rd_party</url>
-        </repository>
-    </repositories>
 
 	<profiles>
 		<profile>
